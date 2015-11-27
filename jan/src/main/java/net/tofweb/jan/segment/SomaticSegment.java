@@ -10,12 +10,20 @@ import net.tofweb.jan.potential.Potential;
 
 public class SomaticSegment extends Segment {
 
-	private BigDecimal actionThresholdMilivolts = Configuration.actionThresholdMillivolts;
-	private MicroMeter length = Configuration.somaLength;
-	private MicroMeter radius = Configuration.somaRadius;
-	private MicroFaradPerCentimeterSquared membraneCapacitance = Configuration.somaMembraneCapacaitance;
-	private KilohmPerCentimeterSquared membraneResistance = Configuration.somaMembraneResistance;
-	private KilohmPerCentimeterSquared intracellularResistance = Configuration.somaIntracellularResistance;
-	private Potential restingPotential = Configuration.somaRestingPotential;
+	private BigDecimal actionThresholdMilivolts = Configuration.getActionThresholdMillivolts();
+	private MicroMeter length = Configuration.getSomaLength();
+	private MicroMeter radius = Configuration.getSomaRadius();
+	private MicroFaradPerCentimeterSquared membraneCapacitance = Configuration.getSomaMembraneCapacitance();
+	private KilohmPerCentimeterSquared membraneResistance = Configuration.getSomaMembraneResistance();
+	private KilohmPerCentimeterSquared intracellularResistance = Configuration.getSomaIntracellularResistance();
+	private Potential restingPotential = Configuration.getSomaRestingPotential();
+
+	@Override
+	public String toString() {
+		return "SomaticSegment [actionThresholdMilivolts=" + actionThresholdMilivolts + ", length=" + length
+				+ ", radius=" + radius + ", membraneCapacitance=" + membraneCapacitance + ", membraneResistance="
+				+ membraneResistance + ", intracellularResistance=" + intracellularResistance + ", restingPotential="
+				+ restingPotential + "]";
+	}
 
 }

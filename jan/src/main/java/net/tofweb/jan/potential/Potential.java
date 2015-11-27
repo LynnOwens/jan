@@ -34,7 +34,7 @@ public class Potential {
 	}
 
 	private void applyOhmsLaw(MilliVolt voltage, MilliAmpere amperage, KilohmPerCentimeterSquared resistance) {
-		if (amperage.getAmperes() != (voltage.getVolts().divide(resistance.getOhms()))) {
+		if (!amperage.getAmperes().equals(voltage.getVolts().divide(resistance.getOhms()))) {
 			throw new PhysicsException("Violation of Ohms Law, amps do not equal volts divided by ohms");
 		}
 	}

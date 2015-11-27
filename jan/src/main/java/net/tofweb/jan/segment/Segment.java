@@ -1,40 +1,65 @@
 package net.tofweb.jan.segment;
 
-import java.math.BigDecimal;
-
+import net.tofweb.jan.measurement.KilohmPerCentimeterSquared;
+import net.tofweb.jan.measurement.MicroFaradPerCentimeterSquared;
+import net.tofweb.jan.measurement.MicroMeter;
 import net.tofweb.jan.potential.Potential;
 
 public abstract class Segment {
 
-	private BigDecimal length;
-	private BigDecimal radius;
-	private BigDecimal membraneCapacitance;
-	private BigDecimal membraneResistance;
-	private BigDecimal intracellularResistance;
+	private MicroMeter length;
+	private MicroMeter radius;
+	private MicroFaradPerCentimeterSquared membraneCapacitance;
+	private KilohmPerCentimeterSquared membraneResistance;
+	private KilohmPerCentimeterSquared intracellularResistance;
 	private Potential restingPotential;
-	
-	public BigDecimal getLength() {
+
+	public MicroMeter getLength() {
 		return length;
 	}
-	
-	public BigDecimal getRadius() {
+
+	public void setLength(MicroMeter length) {
+		this.length = length;
+	}
+
+	public MicroMeter getRadius() {
 		return radius;
 	}
-	
-	public BigDecimal getMembraneCapacitance() {
+
+	public void setRadius(MicroMeter radius) {
+		this.radius = radius;
+	}
+
+	public MicroFaradPerCentimeterSquared getMembraneCapacitance() {
 		return membraneCapacitance;
 	}
-	
-	public BigDecimal getMembraneResistance() {
+
+	public void setMembraneCapacitance(MicroFaradPerCentimeterSquared membraneCapacitance) {
+		this.membraneCapacitance = membraneCapacitance;
+	}
+
+	public KilohmPerCentimeterSquared getMembraneResistance() {
 		return membraneResistance;
 	}
-	
-	public BigDecimal getIntracellularResistance() {
+
+	public void setMembraneResistance(KilohmPerCentimeterSquared membraneResistance) {
+		this.membraneResistance = membraneResistance;
+	}
+
+	public KilohmPerCentimeterSquared getIntracellularResistance() {
 		return intracellularResistance;
 	}
-	
+
+	public void setIntracellularResistance(KilohmPerCentimeterSquared intracellularResistance) {
+		this.intracellularResistance = intracellularResistance;
+	}
+
 	public Potential getRestingPotential() {
 		return restingPotential;
+	}
+
+	public void setRestingPotential(Potential restingPotential) {
+		this.restingPotential = restingPotential;
 	}
 
 	@Override
@@ -98,5 +123,5 @@ public abstract class Segment {
 				+ ", membraneResistance=" + membraneResistance + ", intracellularResistance=" + intracellularResistance
 				+ ", restingPotential=" + restingPotential + "]";
 	}
-	
+
 }
