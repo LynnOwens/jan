@@ -6,6 +6,7 @@ import net.tofweb.jan.Configuration;
 import net.tofweb.jan.measurement.KilohmPerCentimeterSquared;
 import net.tofweb.jan.measurement.MicroFaradPerCentimeterSquared;
 import net.tofweb.jan.measurement.MicroMeter;
+import net.tofweb.jan.neuron.ArtificialNeuron;
 import net.tofweb.jan.potential.Potential;
 
 public class SomaticSegment extends Segment {
@@ -17,6 +18,10 @@ public class SomaticSegment extends Segment {
 	private KilohmPerCentimeterSquared membraneResistance = Configuration.getSomaMembraneResistance();
 	private KilohmPerCentimeterSquared intracellularResistance = Configuration.getSomaIntracellularResistance();
 	private Potential restingPotential = Configuration.getSomaRestingPotential();
+
+	public SomaticSegment(ArtificialNeuron parentNeuron) {
+		super(parentNeuron);
+	}
 
 	@Override
 	public String toString() {

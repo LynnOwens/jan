@@ -26,8 +26,7 @@ public class Configuration {
 	private static KilohmPerCentimeterSquared somaMembraneResistance;
 	private static KilohmPerCentimeterSquared somaIntracellularResistance;
 	private static MicroFaradPerCentimeterSquared somaMembraneCapacitance;
-	private static Potential somaRestingPotential = new Potential(new MilliVolt(new BigDecimal("-65")),
-			somaIntracellularResistance);
+	private static Potential somaRestingPotential;
 
 	/*
 	 * Dendritic branch segment
@@ -48,6 +47,8 @@ public class Configuration {
 	private static KilohmPerCentimeterSquared axonIntracellularResistance;
 	private static MicroFaradPerCentimeterSquared axonMembraneCapacitance;
 	private static Potential axonRestingPotential;
+	private static Integer averageNumOfAxonBranches;
+	private static Integer axonSegmentSplitMaximum;
 
 	private static Properties prop = new Properties();
 
@@ -130,6 +131,10 @@ public class Configuration {
 		axonRestingPotential = new Potential(
 				new MilliVolt(new BigDecimal(prop.getProperty("segment.axonal.rest.potential.millivolts", "-65"))),
 				axonIntracellularResistance);
+
+		averageNumOfAxonBranches = Integer.valueOf(prop.getProperty("segment.axonal.arbor.branch.average", "150"));
+
+		axonSegmentSplitMaximum = Integer.valueOf(prop.getProperty("segment.axonal.arbor.branch.split.max", "3"));
 	}
 
 	private static void conditinallyLoad() {
@@ -316,6 +321,24 @@ public class Configuration {
 
 	public static void setDendriteMembraneCapacitance(MicroFaradPerCentimeterSquared dendriteMembraneCapacitance) {
 		Configuration.dendriteMembraneCapacitance = dendriteMembraneCapacitance;
+	}
+
+	public static Integer getAverageNumOfAxonBranches() {
+		Configuration.conditinallyLoad();
+		return averageNumOfAxonBranches;
+	}
+
+	public static void setAverageNumOfAxonBranches(Integer averageNumOfAxonBranches) {
+		Configuration.averageNumOfAxonBranches = averageNumOfAxonBranches;
+	}
+
+	public static Integer getAxonSegmentSplitMaximum() {
+		Configuration.conditinallyLoad();
+		return axonSegmentSplitMaximum;
+	}
+
+	public static void setAxonSegmentSplitMaximum(Integer axonSegmentSplitMaximum) {
+		Configuration.axonSegmentSplitMaximum = axonSegmentSplitMaximum;
 	}
 
 }

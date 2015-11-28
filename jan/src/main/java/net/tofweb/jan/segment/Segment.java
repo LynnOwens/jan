@@ -3,6 +3,7 @@ package net.tofweb.jan.segment;
 import net.tofweb.jan.measurement.KilohmPerCentimeterSquared;
 import net.tofweb.jan.measurement.MicroFaradPerCentimeterSquared;
 import net.tofweb.jan.measurement.MicroMeter;
+import net.tofweb.jan.neuron.ArtificialNeuron;
 import net.tofweb.jan.potential.Potential;
 
 public abstract class Segment {
@@ -13,6 +14,12 @@ public abstract class Segment {
 	private KilohmPerCentimeterSquared membraneResistance;
 	private KilohmPerCentimeterSquared intracellularResistance;
 	private Potential restingPotential;
+	private ArtificialNeuron parentNeuron;
+
+	public Segment(ArtificialNeuron parentNeuron) {
+		super();
+		this.parentNeuron = parentNeuron;
+	}
 
 	public MicroMeter getLength() {
 		return length;
@@ -62,6 +69,14 @@ public abstract class Segment {
 		this.restingPotential = restingPotential;
 	}
 
+	public ArtificialNeuron getParentNeuron() {
+		return parentNeuron;
+	}
+
+	public void setParentNeuron(ArtificialNeuron parentNeuron) {
+		this.parentNeuron = parentNeuron;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -70,6 +85,7 @@ public abstract class Segment {
 		result = prime * result + ((length == null) ? 0 : length.hashCode());
 		result = prime * result + ((membraneCapacitance == null) ? 0 : membraneCapacitance.hashCode());
 		result = prime * result + ((membraneResistance == null) ? 0 : membraneResistance.hashCode());
+		result = prime * result + ((parentNeuron == null) ? 0 : parentNeuron.hashCode());
 		result = prime * result + ((radius == null) ? 0 : radius.hashCode());
 		result = prime * result + ((restingPotential == null) ? 0 : restingPotential.hashCode());
 		return result;
@@ -103,6 +119,11 @@ public abstract class Segment {
 			if (other.membraneResistance != null)
 				return false;
 		} else if (!membraneResistance.equals(other.membraneResistance))
+			return false;
+		if (parentNeuron == null) {
+			if (other.parentNeuron != null)
+				return false;
+		} else if (!parentNeuron.equals(other.parentNeuron))
 			return false;
 		if (radius == null) {
 			if (other.radius != null)

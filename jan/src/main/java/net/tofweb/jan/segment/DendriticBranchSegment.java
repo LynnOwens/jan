@@ -4,6 +4,7 @@ import net.tofweb.jan.Configuration;
 import net.tofweb.jan.measurement.KilohmPerCentimeterSquared;
 import net.tofweb.jan.measurement.MicroFaradPerCentimeterSquared;
 import net.tofweb.jan.measurement.MicroMeter;
+import net.tofweb.jan.neuron.ArtificialNeuron;
 import net.tofweb.jan.potential.Potential;
 
 public class DendriticBranchSegment extends BranchSegment {
@@ -15,4 +16,7 @@ public class DendriticBranchSegment extends BranchSegment {
 	private KilohmPerCentimeterSquared intracellularResistance = Configuration.getDendriteIntracellularResistance();
 	private Potential restingPotential = Configuration.getDendriteRestingPotential();
 
+	public DendriticBranchSegment(ArtificialNeuron parentNeuron, Segment parentSegment) {
+		super(parentNeuron, parentSegment);
+	}
 }
