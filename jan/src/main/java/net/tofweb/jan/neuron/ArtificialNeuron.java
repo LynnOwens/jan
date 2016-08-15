@@ -3,7 +3,6 @@ package net.tofweb.jan.neuron;
 import java.util.List;
 
 import net.tofweb.jan.Configuration;
-import net.tofweb.jan.arbor.AxonalArborGenerator;
 import net.tofweb.jan.segment.AxonalBranchSegment;
 import net.tofweb.jan.segment.DendriticBranchSegment;
 import net.tofweb.jan.segment.SomaticSegment;
@@ -12,6 +11,8 @@ public class ArtificialNeuron {
 	private SomaticSegment soma;
 	private List<DendriticBranchSegment> dendriteArbors;
 	private AxonalBranchSegment axonHillock;
+
+	// TODO: Put a range around this
 	private Integer numRemainingAxonalChildren = Configuration.getAverageNumOfAxonBranches();
 
 	public ArtificialNeuron() {
@@ -24,8 +25,7 @@ public class ArtificialNeuron {
 		axonHillock = new AxonalBranchSegment(this, soma);
 
 		// Build the axon arbor
-		(new Thread(new AxonalArborGenerator(axonHillock))).start();
-
+		axonHillock.arborize();
 	}
 
 	public SomaticSegment getSoma() {

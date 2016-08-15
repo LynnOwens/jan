@@ -3,7 +3,6 @@ package net.tofweb.jan.network;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.glassfish.grizzly.filterchain.FilterChainBuilder;
 import org.glassfish.grizzly.filterchain.TransportFilter;
@@ -24,7 +23,7 @@ public class BackPlane implements Runnable {
 	public void run() {
 
 		// Set up a simple configuration that logs on the console.
-		BasicConfigurator.configure();
+		// BasicConfigurator.configure();
 
 		// Create a FilterChain using FilterChainBuilder
 		FilterChainBuilder filterChainBuilder = FilterChainBuilder.stateless();
@@ -54,9 +53,11 @@ public class BackPlane implements Runnable {
 
 			// Run forever
 			while (Main.keepAlive) {
-
+				Thread.sleep(60000);
 			}
 		} catch (IOException e) {
+			log.error(e);
+		} catch (InterruptedException e) {
 			log.error(e);
 		} finally {
 			// stop the transport

@@ -8,7 +8,7 @@ import net.tofweb.jan.neuron.ArtificialNeuron;
 
 public class BranchSegment extends Segment {
 
-	List<SynapticTerminal> synapses;
+	private List<SynapticTerminal> synapses;
 	private List<BranchSegment> childSegments = new ArrayList<BranchSegment>();
 	private Segment parentSegment;
 
@@ -19,7 +19,6 @@ public class BranchSegment extends Segment {
 
 	public BranchSegment(ArtificialNeuron parentNeuron) {
 		super(parentNeuron);
-		// TODO Auto-generated constructor stub
 	}
 
 	public List<SynapticTerminal> getSynapses() {

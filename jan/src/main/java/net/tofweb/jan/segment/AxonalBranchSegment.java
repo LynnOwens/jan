@@ -1,5 +1,9 @@
 package net.tofweb.jan.segment;
 
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.apache.log4j.Logger;
+
 import net.tofweb.jan.Configuration;
 import net.tofweb.jan.measurement.KilohmPerCentimeterSquared;
 import net.tofweb.jan.measurement.MicroFaradPerCentimeterSquared;
@@ -9,14 +13,89 @@ import net.tofweb.jan.potential.Potential;
 
 public class AxonalBranchSegment extends BranchSegment {
 
-	private MicroMeter length = Configuration.getAxonSegmentLength();
-	private MicroMeter radius = Configuration.getAxonSegmentRadius();
-	private MicroFaradPerCentimeterSquared membraneCapacitance = Configuration.getAxonMembraneCapacitance();
-	private KilohmPerCentimeterSquared membraneResistance = Configuration.getAxonMembraneResistance();
-	private KilohmPerCentimeterSquared intracellularResistance = Configuration.getAxonIntracellularResistance();
-	private Potential restingPotential = Configuration.getAxonRestingPotential();
+	private static final Logger log = Logger.getLogger(AxonalBranchSegment.class);
+	public static final MicroMeter LENGTH = Configuration.getAxonSegmentLength();
+	public static final MicroMeter RADIUS = Configuration.getAxonSegmentRadius();
+	private static MicroFaradPerCentimeterSquared membraneCapacitance = Configuration.getAxonMembraneCapacitance();
+	private static KilohmPerCentimeterSquared membraneResistance = Configuration.getAxonMembraneResistance();
+	private static KilohmPerCentimeterSquared intracellularResistance = Configuration.getAxonIntracellularResistance();
+	private static Potential restingPotential = Configuration.getAxonRestingPotential();
+	private static Integer maximumAxonalSegmentSplits = Configuration.getAxonSegmentSplitMaximum();
 
 	public AxonalBranchSegment(ArtificialNeuron parentNeuron, Segment parentSegment) {
 		super(parentNeuron, parentSegment);
 	}
+
+	public void arborize() {
+		int maxRemainingNeuronChildren = this.getParentNeuron().getNumRemainingAxonalChildren();
+
+		if (maxRemainingNeuronChildren > 0) {
+			int remainingSegmentChildren = ThreadLocalRandom.current().nextInt(0, getMaximumAxonalSegmentSplits() + 1);
+
+			while (remainingSegmentChildren > 0) {
+
+				ArtificialNeuron parentNeuron = this.getParentNeuron();
+				maxRemainingNeuronChildren = parentNeuron.getNumRemainingAxonalChildren();
+
+				if (maxRemainingNeuronChildren > 0) {
+					AxonalBranchSegment nextChild = new AxonalBranchSegment(parentNeuron, this);
+					this.addChildSegment(nextChild);
+					parentNeuron.setNumRemainingAxonalChildren(--maxRemainingNeuronChildren);
+					remainingSegmentChildren--;
+					nextChild.arborize();
+				} else {
+					break;
+				}
+			}
+		}
+	}
+
+	@Override
+	public MicroFaradPerCentimeterSquared getMembraneCapacitance() {
+		return membraneCapacitance;
+	}
+
+	@Override
+	public void setMembraneCapacitance(MicroFaradPerCentimeterSquared membraneCapacitance) {
+		AxonalBranchSegment.membraneCapacitance = membraneCapacitance;
+	}
+
+	@Override
+	public KilohmPerCentimeterSquared getMembraneResistance() {
+		return membraneResistance;
+	}
+
+	@Override
+	public void setMembraneResistance(KilohmPerCentimeterSquared membraneResistance) {
+		AxonalBranchSegment.membraneResistance = membraneResistance;
+	}
+
+	@Override
+	public KilohmPerCentimeterSquared getIntracellularResistance() {
+		return intracellularResistance;
+	}
+
+	@Override
+	public void setIntracellularResistance(KilohmPerCentimeterSquared intracellularResistance) {
+		AxonalBranchSegment.intracellularResistance = intracellularResistance;
+	}
+
+	@Override
+	public Potential getRestingPotential() {
+		return restingPotential;
+	}
+
+	@Override
+	public void setRestingPotential(Potential restingPotential) {
+		AxonalBranchSegment.restingPotential = restingPotential;
+	}
+
+	public Integer getMaximumAxonalSegmentSplits() {
+		return maximumAxonalSegmentSplits;
+	}
+
+	public void setMaximumAxonalSegmentSplits(Integer maximumAxonalSegmentSplits) {
+		AxonalBranchSegment.maximumAxonalSegmentSplits = maximumAxonalSegmentSplits;
+	}
+
 }
