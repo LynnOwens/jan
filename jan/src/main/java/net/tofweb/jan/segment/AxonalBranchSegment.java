@@ -13,7 +13,6 @@ import net.tofweb.jan.potential.Potential;
 
 public class AxonalBranchSegment extends BranchSegment {
 
-	private static final Logger log = Logger.getLogger(AxonalBranchSegment.class);
 	public static final MicroMeter LENGTH = Configuration.getAxonSegmentLength();
 	public static final MicroMeter RADIUS = Configuration.getAxonSegmentRadius();
 	private static MicroFaradPerCentimeterSquared membraneCapacitance = Configuration.getAxonMembraneCapacitance();

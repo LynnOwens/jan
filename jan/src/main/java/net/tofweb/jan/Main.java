@@ -6,7 +6,6 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import net.tofweb.jan.network.BackPlane;
 import net.tofweb.jan.neuron.ArtificialNeuron;
 
 public class Main {
@@ -30,9 +29,6 @@ public class Main {
 
 		// Configure the app
 		new Configuration().load();
-
-		// Start the network
-		(new Thread(new BackPlane())).start();
 
 		// Build two neurons
 		ArtificialNeuron a1 = new ArtificialNeuron();

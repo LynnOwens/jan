@@ -15,6 +15,12 @@ public class BranchSegment extends Segment {
 	public BranchSegment(ArtificialNeuron parentNeuron, Segment parentSegment) {
 		super(parentNeuron);
 		this.parentSegment = parentSegment;
+		
+		populateSynapses();
+	}
+
+	private void populateSynapses() {
+		
 	}
 
 	public BranchSegment(ArtificialNeuron parentNeuron) {

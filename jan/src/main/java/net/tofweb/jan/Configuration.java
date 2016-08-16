@@ -16,7 +16,12 @@ import net.tofweb.jan.potential.Potential;
 public class Configuration {
 
 	private static final Logger log = Logger.getLogger(Configuration.class);
-
+	
+	/*
+	 * Segment
+	 */
+	
+	
 	/*
 	 * Somatic segment
 	 */

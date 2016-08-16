@@ -1,8 +1,11 @@
 package net.tofweb.jan.segment;
 
+import java.math.BigDecimal;
+
 import net.tofweb.jan.measurement.KilohmPerCentimeterSquared;
 import net.tofweb.jan.measurement.MicroFaradPerCentimeterSquared;
 import net.tofweb.jan.measurement.MicroMeter;
+import net.tofweb.jan.measurement.MicroMeterSquared;
 import net.tofweb.jan.neuron.ArtificialNeuron;
 import net.tofweb.jan.potential.Potential;
 
@@ -15,10 +18,21 @@ public abstract class Segment {
 	private KilohmPerCentimeterSquared intracellularResistance;
 	private Potential restingPotential;
 	private ArtificialNeuron parentNeuron;
+	private BigDecimal pi = new BigDecimal("3.14159265359");
+	private BigDecimal two = new BigDecimal("2");
 
 	public Segment(ArtificialNeuron parentNeuron) {
 		super();
 		this.parentNeuron = parentNeuron;
+	}
+
+	public MicroMeterSquared getSurfaceArea() {
+		MicroMeterSquared radiusSquared = getRadius().square();
+		BigDecimal twoTimesPi = two.multiply(pi);
+		BigDecimal twoTimesPiTimesRadiusTimesHeight = twoTimesPi.multiply(radius.getMicroMeters()).multiply(length.getMicroMeters());
+		BigDecimal twoTimesPiTimesRadiusSquared = twoTimesPi.multiply(radiusSquared.getMicroMeters());
+		BigDecimal surfaceArea = twoTimesPiTimesRadiusTimesHeight.add(twoTimesPiTimesRadiusSquared);
+		return new MicroMeterSquared(surfaceArea);
 	}
 
 	public MicroMeter getLength() {
