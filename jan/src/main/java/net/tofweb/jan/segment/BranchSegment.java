@@ -6,7 +6,7 @@ import java.util.List;
 import net.tofweb.jan.network.SynapticTerminal;
 import net.tofweb.jan.neuron.ArtificialNeuron;
 
-public class BranchSegment extends Segment {
+public abstract class BranchSegment extends Segment {
 
 	private List<SynapticTerminal> synapses;
 	private List<BranchSegment> childSegments = new ArrayList<BranchSegment>();
@@ -19,9 +19,9 @@ public class BranchSegment extends Segment {
 		populateSynapses();
 	}
 
-	private void populateSynapses() {
-		
-	}
+	protected abstract void populateSynapses();
+	
+	protected abstract void arborize();
 
 	public BranchSegment(ArtificialNeuron parentNeuron) {
 		super(parentNeuron);
@@ -33,6 +33,10 @@ public class BranchSegment extends Segment {
 
 	public void setSynapses(List<SynapticTerminal> synapses) {
 		this.synapses = synapses;
+	}
+	
+	public void addSynapse(SynapticTerminal synapse) {
+		this.synapses.add(synapse);
 	}
 
 	public List<BranchSegment> getChildSegments() {

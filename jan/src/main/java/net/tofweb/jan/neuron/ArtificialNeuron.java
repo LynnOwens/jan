@@ -1,6 +1,7 @@
 package net.tofweb.jan.neuron;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import net.tofweb.jan.Configuration;
 import net.tofweb.jan.segment.AxonalBranchSegment;
@@ -11,9 +12,13 @@ public class ArtificialNeuron {
 	private SomaticSegment soma;
 	private List<DendriticBranchSegment> dendriteArbors;
 	private AxonalBranchSegment axonHillock;
+	private Integer maxNumberDendriteArbors = Configuration.getMaxNumberDendriteArbors();
 
 	// TODO: Put a range around this
 	private Integer numRemainingAxonalChildren = Configuration.getAverageNumOfAxonBranches();
+	
+	// TODO: Put a range around this
+	private Integer numRemainingDendriticChildren = Configuration.getAverageNumOfDendriteBranches();
 
 	public ArtificialNeuron() {
 		super();
@@ -22,10 +27,20 @@ public class ArtificialNeuron {
 		soma = new SomaticSegment(this);
 
 		// Build the axon hillock
+		// MOVE THIS TO SOMA
 		axonHillock = new AxonalBranchSegment(this, soma);
 
 		// Build the axon arbor
+		// MOVE THIS TO SOMA
 		axonHillock.arborize();
+		
+		// Build multiple dendrite arbors
+		// MOVE THIS TO SOMA
+		populateDendriteArbors();
+	}
+	
+	public void populateDendriteArbors() {
+		int remainingDendriteHillocks = ThreadLocalRandom.current().nextInt(0, getMaxNumberDendriteArbors() + 1);
 	}
 
 	public SomaticSegment getSoma() {
@@ -58,6 +73,22 @@ public class ArtificialNeuron {
 
 	public void setNumRemainingAxonalChildren(Integer numRemainingAxonalChildren) {
 		this.numRemainingAxonalChildren = numRemainingAxonalChildren;
+	}
+
+	public Integer getNumRemainingDendriticChildren() {
+		return numRemainingDendriticChildren;
+	}
+
+	public void setNumRemainingDendriticChildren(Integer numRemainingDendriticChildren) {
+		this.numRemainingDendriticChildren = numRemainingDendriticChildren;
+	}
+
+	public Integer getMaxNumberDendriteArbors() {
+		return maxNumberDendriteArbors;
+	}
+
+	public void setMaxNumberDendriteArbors(Integer maxNumberDendriteArbors) {
+		this.maxNumberDendriteArbors = maxNumberDendriteArbors;
 	}
 
 	@Override
