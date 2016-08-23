@@ -10,7 +10,7 @@ import net.tofweb.jan.segment.SomaticSegment;
 
 public class ArtificialNeuron {
 	private SomaticSegment soma;
-	private List<DendriticBranchSegment> dendriteArbors;
+	private List<DendriticBranchSegment> dendrites;
 	private AxonalBranchSegment axonHillock;
 	private Integer maxNumberDendriteArbors = Configuration.getMaxNumberDendriteArbors();
 
@@ -27,20 +27,23 @@ public class ArtificialNeuron {
 		soma = new SomaticSegment(this);
 
 		// Build the axon hillock
-		// MOVE THIS TO SOMA
 		axonHillock = new AxonalBranchSegment(this, soma);
 
 		// Build the axon arbor
-		// MOVE THIS TO SOMA
 		axonHillock.arborize();
 		
 		// Build multiple dendrite arbors
-		// MOVE THIS TO SOMA
-		populateDendriteArbors();
+		populateDendrites();
 	}
 	
-	public void populateDendriteArbors() {
+	public void populateDendrites() {
 		int remainingDendriteHillocks = ThreadLocalRandom.current().nextInt(0, getMaxNumberDendriteArbors() + 1);
+		
+		if (remainingDendriteHillocks > 0) {
+			DendriticBranchSegment dendrite = new DendriticBranchSegment(this, soma);
+			dendrite.arborize();
+			addDendrite(dendrite);
+		}
 	}
 
 	public SomaticSegment getSoma() {
@@ -51,12 +54,17 @@ public class ArtificialNeuron {
 		this.soma = soma;
 	}
 
-	public List<DendriticBranchSegment> getDendriteArbors() {
-		return dendriteArbors;
+	public List<DendriticBranchSegment> getDendrites() {
+		return dendrites;
 	}
 
-	public void setDendriteArbors(List<DendriticBranchSegment> dendriteArbors) {
-		this.dendriteArbors = dendriteArbors;
+	public void setDendrites(List<DendriticBranchSegment> dendriteArbors) {
+		this.dendrites = dendriteArbors;
+	}
+	
+	public void addDendrite(DendriticBranchSegment dendrite)
+	{
+		this.dendrites.add(dendrite);
 	}
 
 	public AxonalBranchSegment getAxonHillock() {
@@ -96,7 +104,7 @@ public class ArtificialNeuron {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((axonHillock == null) ? 0 : axonHillock.hashCode());
-		result = prime * result + ((dendriteArbors == null) ? 0 : dendriteArbors.hashCode());
+		result = prime * result + ((dendrites == null) ? 0 : dendrites.hashCode());
 		result = prime * result + ((soma == null) ? 0 : soma.hashCode());
 		return result;
 	}
@@ -115,10 +123,10 @@ public class ArtificialNeuron {
 				return false;
 		} else if (!axonHillock.equals(other.axonHillock))
 			return false;
-		if (dendriteArbors == null) {
-			if (other.dendriteArbors != null)
+		if (dendrites == null) {
+			if (other.dendrites != null)
 				return false;
-		} else if (!dendriteArbors.equals(other.dendriteArbors))
+		} else if (!dendrites.equals(other.dendrites))
 			return false;
 		if (soma == null) {
 			if (other.soma != null)
@@ -130,7 +138,7 @@ public class ArtificialNeuron {
 
 	@Override
 	public String toString() {
-		return "ArtificialNeuron [soma=" + soma + ", dendriteArbors=" + dendriteArbors + ", axonHillock=" + axonHillock
+		return "ArtificialNeuron [soma=" + soma + ", dendriteArbors=" + dendrites + ", axonHillock=" + axonHillock
 				+ "]";
 	}
 

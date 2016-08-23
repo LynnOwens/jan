@@ -26,7 +26,7 @@ public class AxonalBranchSegment extends BranchSegment {
 	}
 	
 	@Override
-	protected void populateSynapses() {
+	public void populateSynapses() {
 		Integer synapsesRemaining = getSynapsesPerMicroMeterSquared() * getSurfaceArea().getMicroMeters().intValue();
 		
 		getSynapses().clear();
@@ -37,29 +37,11 @@ public class AxonalBranchSegment extends BranchSegment {
 		}
 	}
 
-	@Override
+	@Override 	
 	public void arborize() {
-		int maxRemainingNeuronChildren = this.getParentNeuron().getNumRemainingAxonalChildren();
-
-		if (maxRemainingNeuronChildren > 0) {
-			int remainingSegmentChildren = ThreadLocalRandom.current().nextInt(0, getMaximumAxonalSegmentSplits() + 1);
-
-			while (remainingSegmentChildren > 0) {
-
-				ArtificialNeuron parentNeuron = this.getParentNeuron();
-				maxRemainingNeuronChildren = parentNeuron.getNumRemainingAxonalChildren();
-
-				if (maxRemainingNeuronChildren > 0) {
-					AxonalBranchSegment nextChild = new AxonalBranchSegment(parentNeuron, this);
-					this.addChildSegment(nextChild);
-					parentNeuron.setNumRemainingAxonalChildren(--maxRemainingNeuronChildren);
-					remainingSegmentChildren--;
-					nextChild.arborize();
-				} else {
-					break;
-				}
-			}
-		}
+		int maxRemainingAxonalChildren = this.getParentNeuron().getNumRemainingAxonalChildren();
+		int remainingSegmentChildren = ThreadLocalRandom.current().nextInt(0, getMaximumAxonalSegmentSplits() + 1);
+		nativeArborize(maxRemainingAxonalChildren, remainingSegmentChildren);
 	}
 
 	@Override

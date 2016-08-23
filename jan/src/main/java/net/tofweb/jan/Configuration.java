@@ -32,6 +32,7 @@ public class Configuration {
 	private static KilohmPerCentimeterSquared somaIntracellularResistance;
 	private static MicroFaradPerCentimeterSquared somaMembraneCapacitance;
 	private static Potential somaRestingPotential;
+	private static Integer maxNumberDendriteArbors;
 
 	/*
 	 * Dendritic branch segment
@@ -100,6 +101,8 @@ public class Configuration {
 		somaRestingPotential = new Potential(
 				new MilliVolt(new BigDecimal(prop.getProperty("segment.somatic.rest.potential.millivolts", "-65"))),
 				somaIntracellularResistance);
+		
+		maxNumberDendriteArbors = Integer.valueOf(prop.getProperty("segment.somatic.rest.potential.millivolts", "4"));
 
 		/*
 		 * Dendrite configuration
@@ -390,4 +393,12 @@ public class Configuration {
 		Configuration.dendriteSegmentSplitMaximum = dendriteSegmentSplitMaximum;
 	}
 
+	public static Integer getMaxNumberDendriteArbors() {
+		return maxNumberDendriteArbors;
+	}
+
+	public static void setMaxNumberDendriteArbors(Integer maxNumberDendriteArbors) {
+		Configuration.maxNumberDendriteArbors = maxNumberDendriteArbors;
+	}
+	
 }

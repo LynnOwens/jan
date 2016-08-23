@@ -19,9 +19,29 @@ public abstract class BranchSegment extends Segment {
 		populateSynapses();
 	}
 
-	protected abstract void populateSynapses();
+	public abstract void populateSynapses();
 	
-	protected abstract void arborize();
+	public abstract void arborize();
+	
+	protected void nativeArborize(Integer maxRemainingChildren, Integer remainingSegmentSplits) {
+		if (maxRemainingChildren > 0) {
+			while (remainingSegmentSplits > 0) {
+
+				ArtificialNeuron parentNeuron = this.getParentNeuron();
+				maxRemainingChildren = parentNeuron.getNumRemainingAxonalChildren();
+
+				if (maxRemainingChildren > 0) {
+					AxonalBranchSegment nextChild = new AxonalBranchSegment(parentNeuron, this);
+					this.addChildSegment(nextChild);
+					parentNeuron.setNumRemainingAxonalChildren(--maxRemainingChildren);
+					remainingSegmentSplits--;
+					nextChild.arborize();
+				} else {
+					break;
+				}
+			}
+		}
+	}
 
 	public BranchSegment(ArtificialNeuron parentNeuron) {
 		super(parentNeuron);

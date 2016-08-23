@@ -26,7 +26,7 @@ public class DendriticBranchSegment extends BranchSegment {
 	}
 
 	@Override
-	protected void populateSynapses() {
+	public void populateSynapses() {
 		Integer synapsesRemaining = getSynapsesPerMicroMeterSquared() * getSurfaceArea().getMicroMeters().intValue();
 		
 		getSynapses().clear();
@@ -37,28 +37,11 @@ public class DendriticBranchSegment extends BranchSegment {
 		}
 	}
 	
-	@Override
-	protected void arborize() {
-		int maxRemainingNeuronChildren = this.getParentNeuron().getNumRemainingDendriticChildren();
-
-		if (maxRemainingNeuronChildren > 0) {
-			int remainingSegmentChildren = ThreadLocalRandom.current().nextInt(0, getMaximumDendriticSegmentSplits() + 1);
-
-			while (remainingSegmentChildren > 0) {
-				ArtificialNeuron parentNeuron = this.getParentNeuron();
-				maxRemainingNeuronChildren = parentNeuron.getNumRemainingAxonalChildren();
-
-				if (maxRemainingNeuronChildren > 0) {
-					AxonalBranchSegment nextChild = new AxonalBranchSegment(parentNeuron, this);
-					this.addChildSegment(nextChild);
-					parentNeuron.setNumRemainingDendriticChildren(--maxRemainingNeuronChildren);
-					remainingSegmentChildren--;
-					nextChild.arborize();
-				} else {
-					break;
-				}
-			}
-		}	
+	@Override 	
+	public void arborize() {
+		int maxRemainingDendriticChildren = this.getParentNeuron().getNumRemainingDendriticChildren();
+		int remainingSegmentChildren = ThreadLocalRandom.current().nextInt(0, getMaximumDendriticSegmentSplits() + 1);
+		nativeArborize(maxRemainingDendriticChildren, remainingSegmentChildren);
 	}
 
 	public MicroFaradPerCentimeterSquared getMembraneCapacitance() {
