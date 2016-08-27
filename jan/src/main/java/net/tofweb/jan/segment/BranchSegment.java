@@ -6,15 +6,51 @@ import java.util.List;
 import net.tofweb.jan.network.SynapticTerminal;
 import net.tofweb.jan.neuron.ArtificialNeuron;
 
-public class BranchSegment extends Segment {
+public abstract class BranchSegment extends Segment {
 
 	private List<SynapticTerminal> synapses;
+	private Integer synapsesPerMicroMeterSquared;
 	private List<BranchSegment> childSegments = new ArrayList<BranchSegment>();
 	private Segment parentSegment;
+	private Integer segmentSplitMaximum;
 
 	public BranchSegment(ArtificialNeuron parentNeuron, Segment parentSegment) {
 		super(parentNeuron);
 		this.parentSegment = parentSegment;
+
+		populateSynapses();
+	}
+
+	public abstract void arborize();
+
+	protected void nativeArborize(Integer maxRemainingChildren, Integer remainingSegmentSplits) {
+		if (maxRemainingChildren > 0) {
+			while (remainingSegmentSplits > 0) {
+
+				ArtificialNeuron parentNeuron = this.getParentNeuron();
+				maxRemainingChildren = parentNeuron.getNumRemainingAxonalChildren();
+
+				if (maxRemainingChildren > 0) {
+					AxonalBranchSegment nextChild = new AxonalBranchSegment(parentNeuron, this);
+					this.addChildSegment(nextChild);
+					parentNeuron.setNumRemainingAxonalChildren(--maxRemainingChildren);
+					remainingSegmentSplits--;
+					nextChild.arborize();
+				} else {
+					break;
+				}
+			}
+		}
+	}
+
+	public void populateSynapses() {
+		Integer synapsesRemaining = getSynapsesPerMicroMeterSquared() * getSurfaceArea().getMicroMeters().intValue();
+
+		getSynapses().clear();
+		while (synapsesRemaining > 0) {
+			addSynapse(new SynapticTerminal());
+			synapsesRemaining--;
+		}
 	}
 
 	public BranchSegment(ArtificialNeuron parentNeuron) {
@@ -27,6 +63,10 @@ public class BranchSegment extends Segment {
 
 	public void setSynapses(List<SynapticTerminal> synapses) {
 		this.synapses = synapses;
+	}
+
+	public void addSynapse(SynapticTerminal synapse) {
+		this.synapses.add(synapse);
 	}
 
 	public List<BranchSegment> getChildSegments() {
@@ -49,34 +89,20 @@ public class BranchSegment extends Segment {
 		this.parentSegment = parentSegment;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((synapses == null) ? 0 : synapses.hashCode());
-		return result;
+	public Integer getSynapsesPerMicroMeterSquared() {
+		return synapsesPerMicroMeterSquared;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BranchSegment other = (BranchSegment) obj;
-		if (synapses == null) {
-			if (other.synapses != null)
-				return false;
-		} else if (!synapses.equals(other.synapses))
-			return false;
-		return true;
+	public void setSynapsesPerMicroMeterSquared(Integer synapsesPerMicroMeterSquared) {
+		this.synapsesPerMicroMeterSquared = synapsesPerMicroMeterSquared;
 	}
 
-	@Override
-	public String toString() {
-		return "BranchSegment [synapses=" + synapses + "]";
+	public Integer getSegmentSplitMaximum() {
+		return segmentSplitMaximum;
+	}
+
+	public void setSegmentSplitMaximum(Integer segmentSplitMaximum) {
+		this.segmentSplitMaximum = segmentSplitMaximum;
 	}
 
 }

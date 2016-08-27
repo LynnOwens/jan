@@ -16,7 +16,12 @@ import net.tofweb.jan.potential.Potential;
 public class Configuration {
 
 	private static final Logger log = Logger.getLogger(Configuration.class);
-
+	
+	/*
+	 * Segment
+	 */
+	
+	
 	/*
 	 * Somatic segment
 	 */
@@ -27,6 +32,7 @@ public class Configuration {
 	private static KilohmPerCentimeterSquared somaIntracellularResistance;
 	private static MicroFaradPerCentimeterSquared somaMembraneCapacitance;
 	private static Potential somaRestingPotential;
+	private static Integer maxNumberDendriteArbors;
 
 	/*
 	 * Dendritic branch segment
@@ -37,6 +43,9 @@ public class Configuration {
 	private static KilohmPerCentimeterSquared dendriteIntracellularResistance;
 	private static MicroFaradPerCentimeterSquared dendriteMembraneCapacitance;
 	private static Potential dendriteRestingPotential;
+	private static Integer averageNumOfDendriteBranches;
+	private static Integer dendriteSegmentSplitMaximum;
+	private static Integer dendriteSynapsesPerMicroMeterSquared;
 
 	/*
 	 * Axonal branch segment
@@ -49,6 +58,7 @@ public class Configuration {
 	private static Potential axonRestingPotential;
 	private static Integer averageNumOfAxonBranches;
 	private static Integer axonSegmentSplitMaximum;
+	private static Integer axonSynapsesPerMicroMeterSquared;
 
 	private static Properties prop = new Properties();
 
@@ -91,6 +101,8 @@ public class Configuration {
 		somaRestingPotential = new Potential(
 				new MilliVolt(new BigDecimal(prop.getProperty("segment.somatic.rest.potential.millivolts", "-65"))),
 				somaIntracellularResistance);
+		
+		maxNumberDendriteArbors = Integer.valueOf(prop.getProperty("segment.somatic.rest.potential.millivolts", "4"));
 
 		/*
 		 * Dendrite configuration
@@ -111,6 +123,12 @@ public class Configuration {
 		dendriteRestingPotential = new Potential(
 				new MilliVolt(new BigDecimal(prop.getProperty("segment.dendritic.rest.potential.millivolts", "-65"))),
 				dendriteIntracellularResistance);
+		
+		averageNumOfDendriteBranches = Integer.valueOf(prop.getProperty("segment.dendritic.arbor.branch.average", "226"));
+		
+		dendriteSegmentSplitMaximum = Integer.valueOf(prop.getProperty("segment.dendritic.arbor.branch.split.max", "5"));
+		
+		dendriteSynapsesPerMicroMeterSquared = Integer.valueOf(prop.getProperty("segment.dendritic.synapse.density", "4"));
 
 		/*
 		 * Axon configuration
@@ -135,6 +153,8 @@ public class Configuration {
 		averageNumOfAxonBranches = Integer.valueOf(prop.getProperty("segment.axonal.arbor.branch.average", "150"));
 
 		axonSegmentSplitMaximum = Integer.valueOf(prop.getProperty("segment.axonal.arbor.branch.split.max", "3"));
+		
+		axonSynapsesPerMicroMeterSquared = Integer.valueOf(prop.getProperty("segment.axonal.synapse.density", "7"));
 	}
 
 	private static void conditinallyLoad() {
@@ -341,4 +361,44 @@ public class Configuration {
 		Configuration.axonSegmentSplitMaximum = axonSegmentSplitMaximum;
 	}
 
+	public static Integer getAxonSynapsesPerMicroMeterSquared() {
+		return axonSynapsesPerMicroMeterSquared;
+	}
+
+	public static void setAxonSynapsesPerMicroMeterSquared(Integer synapsesPerMicroMeterSquared) {
+		Configuration.axonSynapsesPerMicroMeterSquared = synapsesPerMicroMeterSquared;
+	}
+
+	public static Integer getDendriteSynapsesPerMicroMeterSquared() {
+		return dendriteSynapsesPerMicroMeterSquared;
+	}
+
+	public static void setDendriteSynapsesPerMicroMeterSquared(Integer dendriteSynapsesPerMicroMeterSquared) {
+		Configuration.dendriteSynapsesPerMicroMeterSquared = dendriteSynapsesPerMicroMeterSquared;
+	}
+
+	public static Integer getAverageNumOfDendriteBranches() {
+		return averageNumOfDendriteBranches;
+	}
+
+	public static void setAverageNumOfDendriteBranches(Integer averageNumOfDendriteBranches) {
+		Configuration.averageNumOfDendriteBranches = averageNumOfDendriteBranches;
+	}
+
+	public static Integer getDendriteSegmentSplitMaximum() {
+		return dendriteSegmentSplitMaximum;
+	}
+
+	public static void setDendriteSegmentSplitMaximum(Integer dendriteSegmentSplitMaximum) {
+		Configuration.dendriteSegmentSplitMaximum = dendriteSegmentSplitMaximum;
+	}
+
+	public static Integer getMaxNumberDendriteArbors() {
+		return maxNumberDendriteArbors;
+	}
+
+	public static void setMaxNumberDendriteArbors(Integer maxNumberDendriteArbors) {
+		Configuration.maxNumberDendriteArbors = maxNumberDendriteArbors;
+	}
+	
 }
