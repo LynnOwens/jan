@@ -33,6 +33,20 @@ public class Main {
 		// Build two neurons
 		ArtificialNeuron a1 = new ArtificialNeuron();
 		ArtificialNeuron a2 = new ArtificialNeuron();
+
+		/*
+		 * Each AN has it's own address, called a centerPoint Each AST gets it's
+		 * own address based on that centerPoint
+		 * 
+		 * AN has a connectTo(AN) and a connectNear(AN) method These methods
+		 * build DBS as needed.
+		 * 
+		 * Another AN in the same network as the the first can connect with a
+		 * DBS off the soma.
+		 * 
+		 * When the other AN is in another network or the DBS has run out of DST
+		 * then it grows another DBS
+		 */
 	}
 
 }

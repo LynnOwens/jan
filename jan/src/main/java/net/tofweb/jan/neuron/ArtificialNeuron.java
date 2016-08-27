@@ -1,7 +1,9 @@
 package net.tofweb.jan.neuron;
 
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.UUID;
 
 import net.tofweb.jan.Configuration;
 import net.tofweb.jan.segment.AxonalBranchSegment;
@@ -13,15 +15,21 @@ public class ArtificialNeuron {
 	private List<DendriticBranchSegment> dendrites;
 	private AxonalBranchSegment axonHillock;
 	private Integer maxNumberDendriteArbors = Configuration.getMaxNumberDendriteArbors();
+	private UUID uuid;
+	private SocketAddress address;
 
 	// TODO: Put a range around this
 	private Integer numRemainingAxonalChildren = Configuration.getAverageNumOfAxonBranches();
-	
+
 	// TODO: Put a range around this
 	private Integer numRemainingDendriticChildren = Configuration.getAverageNumOfDendriteBranches();
 
 	public ArtificialNeuron() {
 		super();
+
+		// Become universally unique
+		uuid = UUID.randomUUID();
+		address = determineAddress(uuid);
 
 		// Setup the soma
 		soma = new SomaticSegment(this);
@@ -31,19 +39,12 @@ public class ArtificialNeuron {
 
 		// Build the axon arbor
 		axonHillock.arborize();
-		
-		// Build multiple dendrite arbors
-		populateDendrites();
 	}
-	
-	public void populateDendrites() {
-		int remainingDendriteHillocks = ThreadLocalRandom.current().nextInt(0, getMaxNumberDendriteArbors() + 1);
-		
-		if (remainingDendriteHillocks > 0) {
-			DendriticBranchSegment dendrite = new DendriticBranchSegment(this, soma);
-			dendrite.arborize();
-			addDendrite(dendrite);
-		}
+
+	private SocketAddress determineAddress(UUID uuid) {
+		String uuidString = getUuid().toString();
+		String mostSignificantBits = uuidString.substring(uuidString.length() - 10);
+		return new InetSocketAddress(mostSignificantBits, 2121);
 	}
 
 	public SomaticSegment getSoma() {
@@ -61,9 +62,8 @@ public class ArtificialNeuron {
 	public void setDendrites(List<DendriticBranchSegment> dendriteArbors) {
 		this.dendrites = dendriteArbors;
 	}
-	
-	public void addDendrite(DendriticBranchSegment dendrite)
-	{
+
+	public void addDendrite(DendriticBranchSegment dendrite) {
 		this.dendrites.add(dendrite);
 	}
 
@@ -97,6 +97,22 @@ public class ArtificialNeuron {
 
 	public void setMaxNumberDendriteArbors(Integer maxNumberDendriteArbors) {
 		this.maxNumberDendriteArbors = maxNumberDendriteArbors;
+	}
+
+	public UUID getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(UUID uuid) {
+		this.uuid = uuid;
+	}
+
+	public SocketAddress getAddress() {
+		return address;
+	}
+
+	public void setAddress(SocketAddress address) {
+		this.address = address;
 	}
 
 	@Override

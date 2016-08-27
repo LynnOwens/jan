@@ -19,38 +19,6 @@ public abstract class BranchSegment extends Segment {
 		this.parentSegment = parentSegment;
 	}
 
-	public abstract void arborize();
-
-	protected void nativeArborize(Integer maxRemainingChildren, Integer remainingSegmentSplits) {
-		if (maxRemainingChildren > 0) {
-			while (remainingSegmentSplits > 0) {
-
-				ArtificialNeuron parentNeuron = this.getParentNeuron();
-				maxRemainingChildren = parentNeuron.getNumRemainingAxonalChildren();
-
-				if (maxRemainingChildren > 0) {
-					AxonalBranchSegment nextChild = new AxonalBranchSegment(parentNeuron, this);
-					this.addChildSegment(nextChild);
-					parentNeuron.setNumRemainingAxonalChildren(--maxRemainingChildren);
-					remainingSegmentSplits--;
-					nextChild.arborize();
-				} else {
-					break;
-				}
-			}
-		}
-	}
-
-	public void populateSynapses() {
-		Integer synapsesRemaining = getSynapsesPerMicroMeterSquared() * getSurfaceArea().getMicroMeters().intValue();
-
-		getSynapses().clear();
-		while (synapsesRemaining > 0) {
-			addSynapse(new SynapticTerminal());
-			synapsesRemaining--;
-		}
-	}
-
 	public BranchSegment(ArtificialNeuron parentNeuron) {
 		super(parentNeuron);
 	}
