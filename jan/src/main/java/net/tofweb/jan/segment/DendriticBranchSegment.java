@@ -18,6 +18,8 @@ public class DendriticBranchSegment extends BranchSegment {
 		setRestingPotential(Configuration.getDendriteRestingPotential());
 		setSegmentSplitMaximum(Configuration.getDendriteSegmentSplitMaximum());
 		setSynapsesPerMicroMeterSquared(Configuration.getDendriteSynapsesPerMicroMeterSquared());
+
+		populateSynapses();
 	}
 
 	@Override

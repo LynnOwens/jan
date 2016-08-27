@@ -8,7 +8,7 @@ import net.tofweb.jan.neuron.ArtificialNeuron;
 
 public abstract class BranchSegment extends Segment {
 
-	private List<SynapticTerminal> synapses;
+	private List<SynapticTerminal> synapses = new ArrayList<SynapticTerminal>();
 	private Integer synapsesPerMicroMeterSquared;
 	private List<BranchSegment> childSegments = new ArrayList<BranchSegment>();
 	private Segment parentSegment;
@@ -17,8 +17,6 @@ public abstract class BranchSegment extends Segment {
 	public BranchSegment(ArtificialNeuron parentNeuron, Segment parentSegment) {
 		super(parentNeuron);
 		this.parentSegment = parentSegment;
-
-		populateSynapses();
 	}
 
 	public abstract void arborize();

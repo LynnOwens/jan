@@ -18,6 +18,8 @@ public class AxonalBranchSegment extends BranchSegment {
 		setRestingPotential(Configuration.getAxonRestingPotential());
 		setSegmentSplitMaximum(Configuration.getAxonSegmentSplitMaximum());
 		setSynapsesPerMicroMeterSquared(Configuration.getAxonSynapsesPerMicroMeterSquared());
+
+		populateSynapses();
 	}
 
 	@Override
