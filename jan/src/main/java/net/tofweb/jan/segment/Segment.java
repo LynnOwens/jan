@@ -92,20 +92,4 @@ public abstract class Segment {
 		this.parentNeuron = parentNeuron;
 	}
 
-	public BigDecimal getPi() {
-		return pi;
-	}
-
-	public void setPi(BigDecimal pi) {
-		this.pi = pi;
-	}
-
-	public BigDecimal getTwo() {
-		return two;
-	}
-
-	public void setTwo(BigDecimal two) {
-		this.two = two;
-	}
-
 }

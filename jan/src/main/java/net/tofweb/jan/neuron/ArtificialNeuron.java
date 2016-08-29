@@ -39,11 +39,12 @@ public class ArtificialNeuron {
 
 		// Build the axon arbor
 		axonHillock.arborize();
+
 	}
 
-	private SocketAddress determineAddress(UUID uuid) {
+	protected SocketAddress determineAddress(UUID uuid) {
 		String uuidString = getUuid().toString();
-		String mostSignificantBits = uuidString.substring(uuidString.length() - 10);
+		String mostSignificantBits = uuidString.substring(uuidString.length() -10);
 		return new InetSocketAddress(mostSignificantBits, 2121);
 	}
 

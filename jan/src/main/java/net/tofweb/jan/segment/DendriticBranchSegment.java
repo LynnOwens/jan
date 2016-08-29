@@ -1,5 +1,7 @@
 package net.tofweb.jan.segment;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import net.tofweb.jan.Configuration;
 import net.tofweb.jan.neuron.ArtificialNeuron;
 
