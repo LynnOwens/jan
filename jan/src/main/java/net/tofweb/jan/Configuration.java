@@ -16,12 +16,11 @@ import net.tofweb.jan.potential.Potential;
 public class Configuration {
 
 	private static final Logger log = Logger.getLogger(Configuration.class);
-	
+
 	/*
 	 * Segment
 	 */
-	
-	
+
 	/*
 	 * Somatic segment
 	 */
@@ -59,6 +58,12 @@ public class Configuration {
 	private static Integer averageNumOfAxonBranches;
 	private static Integer axonSegmentSplitMaximum;
 	private static Integer axonSynapsesPerMicroMeterSquared;
+
+	/*
+	 * Networking
+	 */
+	private static String ulaPrefix;
+	private static String globalId;
 
 	private static Properties prop = new Properties();
 
@@ -101,7 +106,7 @@ public class Configuration {
 		somaRestingPotential = new Potential(
 				new MilliVolt(new BigDecimal(prop.getProperty("segment.somatic.rest.potential.millivolts", "-65"))),
 				somaIntracellularResistance);
-		
+
 		maxNumberDendriteArbors = Integer.valueOf(prop.getProperty("segment.somatic.rest.potential.millivolts", "4"));
 
 		/*
@@ -123,12 +128,15 @@ public class Configuration {
 		dendriteRestingPotential = new Potential(
 				new MilliVolt(new BigDecimal(prop.getProperty("segment.dendritic.rest.potential.millivolts", "-65"))),
 				dendriteIntracellularResistance);
-		
-		averageNumOfDendriteBranches = Integer.valueOf(prop.getProperty("segment.dendritic.arbor.branch.average", "226"));
-		
-		dendriteSegmentSplitMaximum = Integer.valueOf(prop.getProperty("segment.dendritic.arbor.branch.split.max", "5"));
-		
-		dendriteSynapsesPerMicroMeterSquared = Integer.valueOf(prop.getProperty("segment.dendritic.synapse.density", "4"));
+
+		averageNumOfDendriteBranches = Integer
+				.valueOf(prop.getProperty("segment.dendritic.arbor.branch.average", "226"));
+
+		dendriteSegmentSplitMaximum = Integer
+				.valueOf(prop.getProperty("segment.dendritic.arbor.branch.split.max", "5"));
+
+		dendriteSynapsesPerMicroMeterSquared = Integer
+				.valueOf(prop.getProperty("segment.dendritic.synapse.density", "4"));
 
 		/*
 		 * Axon configuration
@@ -153,8 +161,14 @@ public class Configuration {
 		averageNumOfAxonBranches = Integer.valueOf(prop.getProperty("segment.axonal.arbor.branch.average", "150"));
 
 		axonSegmentSplitMaximum = Integer.valueOf(prop.getProperty("segment.axonal.arbor.branch.split.max", "3"));
-		
+
 		axonSynapsesPerMicroMeterSquared = Integer.valueOf(prop.getProperty("segment.axonal.synapse.density", "7"));
+
+		/*
+		 * Networking
+		 */
+		ulaPrefix = prop.getProperty("network.address.prefix", "fd");
+		globalId = prop.getProperty("network.address.globalid", "f0:9250:83e6");
 	}
 
 	private static void conditinallyLoad() {
@@ -362,6 +376,7 @@ public class Configuration {
 	}
 
 	public static Integer getAxonSynapsesPerMicroMeterSquared() {
+		Configuration.conditinallyLoad();
 		return axonSynapsesPerMicroMeterSquared;
 	}
 
@@ -370,6 +385,7 @@ public class Configuration {
 	}
 
 	public static Integer getDendriteSynapsesPerMicroMeterSquared() {
+		Configuration.conditinallyLoad();
 		return dendriteSynapsesPerMicroMeterSquared;
 	}
 
@@ -378,6 +394,7 @@ public class Configuration {
 	}
 
 	public static Integer getAverageNumOfDendriteBranches() {
+		Configuration.conditinallyLoad();
 		return averageNumOfDendriteBranches;
 	}
 
@@ -386,6 +403,7 @@ public class Configuration {
 	}
 
 	public static Integer getDendriteSegmentSplitMaximum() {
+		Configuration.conditinallyLoad();
 		return dendriteSegmentSplitMaximum;
 	}
 
@@ -394,11 +412,30 @@ public class Configuration {
 	}
 
 	public static Integer getMaxNumberDendriteArbors() {
+		Configuration.conditinallyLoad();
 		return maxNumberDendriteArbors;
 	}
 
 	public static void setMaxNumberDendriteArbors(Integer maxNumberDendriteArbors) {
 		Configuration.maxNumberDendriteArbors = maxNumberDendriteArbors;
 	}
-	
+
+	public static String getUlaPrefix() {
+		Configuration.conditinallyLoad();
+		return ulaPrefix;
+	}
+
+	public static void setUlaPrefix(String ulaPrefix) {
+		Configuration.ulaPrefix = ulaPrefix;
+	}
+
+	public static String getGlobalId() {
+		Configuration.conditinallyLoad();
+		return globalId;
+	}
+
+	public static void setGlobalId(String globalId) {
+		Configuration.globalId = globalId;
+	}
+
 }

@@ -1,13 +1,10 @@
 package net.tofweb.jan.neuron;
 
 import java.net.Inet6Address;
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
-import java.net.UnknownHostException;
 import java.util.List;
-import java.util.UUID;
 
 import net.tofweb.jan.Configuration;
+import net.tofweb.jan.network.SynapticAddressManager;
 import net.tofweb.jan.segment.AxonalBranchSegment;
 import net.tofweb.jan.segment.DendriticBranchSegment;
 import net.tofweb.jan.segment.SomaticSegment;
@@ -17,8 +14,7 @@ public class ArtificialNeuron {
 	private List<DendriticBranchSegment> dendrites;
 	private AxonalBranchSegment axonHillock;
 	private Integer maxNumberDendriteArbors = Configuration.getMaxNumberDendriteArbors();
-	private UUID uuid;
-	private SocketAddress address;
+	private Inet6Address address;
 
 	// TODO: Put a range around this
 	private Integer numRemainingAxonalChildren = Configuration.getAverageNumOfAxonBranches();
@@ -29,47 +25,14 @@ public class ArtificialNeuron {
 	public ArtificialNeuron() {
 		super();
 
-		// Become universally unique
-		uuid = UUID.randomUUID();
-		address = determineAddress(uuid);
-
-		// Setup the soma
+		address = SynapticAddressManager.getNewAddress();
 		soma = new SomaticSegment(this);
-
-		// Build the axon hillock
 		axonHillock = new AxonalBranchSegment(this, soma);
-
-		// Build the axon arbor
 		axonHillock.arborize();
 	}
 
 	public void connectTo(ArtificialNeuron an) {
 
-	}
-
-	protected SocketAddress determineAddress(UUID uuid) {
-		String uuidString = getUuid().toString();
-
-		// GLOBAL
-		// :FDXX:XXXX:XXXX
-		String routingNetwork = "fd" + uuidString.substring(uuidString.length() - 10);
-
-		// SUBNET
-		// :ABCD
-
-		// INTERFACE
-		// :1111:2222:3333:4444
-
-		byte[] addressByteArray = "FDC8:BF8B:E62C:ABCD:1111:2222:3333:4444".getBytes();
-		Inet6Address address = null;
-		try {
-			address = Inet6Address.getByAddress("host", addressByteArray, 12);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return new InetSocketAddress(address, 2121);
 	}
 
 	public SomaticSegment getSoma() {
@@ -124,19 +87,11 @@ public class ArtificialNeuron {
 		this.maxNumberDendriteArbors = maxNumberDendriteArbors;
 	}
 
-	public UUID getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
-	}
-
-	public SocketAddress getAddress() {
+	public Inet6Address getAddress() {
 		return address;
 	}
 
-	public void setAddress(SocketAddress address) {
+	public void setAddress(Inet6Address address) {
 		this.address = address;
 	}
 
