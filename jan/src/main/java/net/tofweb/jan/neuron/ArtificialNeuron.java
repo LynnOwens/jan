@@ -29,6 +29,28 @@ public class ArtificialNeuron {
 		soma = new SomaticSegment(this);
 		axonHillock = new AxonalBranchSegment(this, soma);
 		axonHillock.arborize();
+
+		/*
+		 * 1111:2222:3333:4444
+		 * 
+		 * 444 - synapses on one segment
+		 * 
+		 * xxx4:33 - segments on one arbor
+		 * 
+		 * xx3 - arbors on one AN
+		 * 
+		 * 3:222 - ANs in one network
+		 * 
+		 * 2:1 - networks in one region
+		 * 
+		 * x11 - regions in one lobe
+		 * 
+		 * xxx1 - lobes in one brain
+		 * 
+		 * subnet - brains in one community
+		 * 
+		 * synapse, segment, arbor, AN, network, region, lobe, brain
+		 */
 	}
 
 	public void connectTo(ArtificialNeuron an) {
