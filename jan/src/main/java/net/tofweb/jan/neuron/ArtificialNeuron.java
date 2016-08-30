@@ -1,7 +1,9 @@
 package net.tofweb.jan.neuron;
 
+import java.net.Inet6Address;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,13 +41,35 @@ public class ArtificialNeuron {
 
 		// Build the axon arbor
 		axonHillock.arborize();
+	}
+
+	public void connectTo(ArtificialNeuron an) {
 
 	}
 
 	protected SocketAddress determineAddress(UUID uuid) {
 		String uuidString = getUuid().toString();
-		String mostSignificantBits = uuidString.substring(uuidString.length() -10);
-		return new InetSocketAddress(mostSignificantBits, 2121);
+
+		// GLOBAL
+		// :FDXX:XXXX:XXXX
+		String routingNetwork = "fd" + uuidString.substring(uuidString.length() - 10);
+
+		// SUBNET
+		// :ABCD
+
+		// INTERFACE
+		// :1111:2222:3333:4444
+
+		byte[] addressByteArray = "FDC8:BF8B:E62C:ABCD:1111:2222:3333:4444".getBytes();
+		Inet6Address address = null;
+		try {
+			address = Inet6Address.getByAddress("host", addressByteArray, 12);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return new InetSocketAddress(address, 2121);
 	}
 
 	public SomaticSegment getSoma() {
