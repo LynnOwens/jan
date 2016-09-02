@@ -1,11 +1,9 @@
 package net.tofweb.jann.network.neuron;
 
-import java.net.Inet6Address;
 import java.util.List;
 
 import net.tofweb.jann.Configuration;
 import net.tofweb.jann.network.NetworkMember;
-import net.tofweb.jann.network.SynapticAddressManager;
 import net.tofweb.jann.network.segment.AxonalBranchSegment;
 import net.tofweb.jann.network.segment.DendriticBranchSegment;
 import net.tofweb.jann.network.segment.SomaticSegment;
@@ -15,7 +13,6 @@ public class ArtificialNeuron extends NetworkMember {
 	private List<DendriticBranchSegment> dendrites;
 	private AxonalBranchSegment axonHillock;
 	private Integer maxNumberDendriteArbors = Configuration.getMaxNumberDendriteArbors();
-	// private Inet6Address address;
 
 	// TODO: Put a range around this
 	private Integer numRemainingAxonalChildren = Configuration.getAverageNumOfAxonBranches();
@@ -26,32 +23,9 @@ public class ArtificialNeuron extends NetworkMember {
 	public ArtificialNeuron() {
 		super();
 
-		address = SynapticAddressManager.getNewAddress();
 		soma = new SomaticSegment(this);
 		axonHillock = new AxonalBranchSegment(this, soma);
 		axonHillock.arborize();
-
-		/*
-		 * 1111:2222:3333:4444
-		 * 
-		 * 444 - synapses on one segment
-		 * 
-		 * xxx4:33 - segments on one arbor
-		 * 
-		 * xx3 - arbors on one AN
-		 * 
-		 * 3:222 - ANs in one subregion
-		 * 
-		 * 2:1 - subregions in one region
-		 * 
-		 * x11 - regions in one lobe
-		 * 
-		 * xxx1 - lobes in one brain
-		 * 
-		 * subnet - brains in one community
-		 * 
-		 * synapse, segment, arbor, AN, network, region, lobe, brain
-		 */
 	}
 
 	public void connectTo(ArtificialNeuron an) {
@@ -108,15 +82,6 @@ public class ArtificialNeuron extends NetworkMember {
 
 	public void setMaxNumberDendriteArbors(Integer maxNumberDendriteArbors) {
 		this.maxNumberDendriteArbors = maxNumberDendriteArbors;
-	}
-
-	@Override
-	public Inet6Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Inet6Address address) {
-		this.address = address;
 	}
 
 	@Override
