@@ -1,4 +1,4 @@
-package net.tofweb.jan.network;
+package net.tofweb.jann.network;
 
 import java.net.Inet6Address;
 import java.net.UnknownHostException;
@@ -10,8 +10,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.log4j.Logger;
 
-import net.tofweb.jan.Configuration;
-import net.tofweb.jan.Main;
+import net.tofweb.jann.Configuration;
+import net.tofweb.jann.Main;
 
 public class SynapticAddressManager {
 

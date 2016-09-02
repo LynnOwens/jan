@@ -1,4 +1,4 @@
-package net.tofweb.jan.network;
+package net.tofweb.jann.network;
 
 import org.apache.log4j.Logger;
 

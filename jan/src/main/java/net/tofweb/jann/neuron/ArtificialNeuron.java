@@ -1,13 +1,13 @@
-package net.tofweb.jan.neuron;
+package net.tofweb.jann.neuron;
 
 import java.net.Inet6Address;
 import java.util.List;
 
-import net.tofweb.jan.Configuration;
-import net.tofweb.jan.network.SynapticAddressManager;
-import net.tofweb.jan.segment.AxonalBranchSegment;
-import net.tofweb.jan.segment.DendriticBranchSegment;
-import net.tofweb.jan.segment.SomaticSegment;
+import net.tofweb.jann.Configuration;
+import net.tofweb.jann.network.SynapticAddressManager;
+import net.tofweb.jann.segment.AxonalBranchSegment;
+import net.tofweb.jann.segment.DendriticBranchSegment;
+import net.tofweb.jann.segment.SomaticSegment;
 
 public class ArtificialNeuron {
 	private SomaticSegment soma;

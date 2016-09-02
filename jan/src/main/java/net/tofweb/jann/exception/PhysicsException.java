@@ -1,4 +1,4 @@
-package net.tofweb.jan.exception;
+package net.tofweb.jann.exception;
 
 public class PhysicsException extends RuntimeException {
 

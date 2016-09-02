@@ -1,10 +1,10 @@
-package net.tofweb.jan.segment;
+package net.tofweb.jann.segment;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import net.tofweb.jan.Configuration;
-import net.tofweb.jan.network.SynapticTerminal;
-import net.tofweb.jan.neuron.ArtificialNeuron;
+import net.tofweb.jann.Configuration;
+import net.tofweb.jann.network.SynapticTerminal;
+import net.tofweb.jann.neuron.ArtificialNeuron;
 
 public class AxonalBranchSegment extends BranchSegment {
 

@@ -4,10 +4,11 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import net.tofweb.jan.exception.PhysicsException;
-import net.tofweb.jan.measurement.KilohmPerCentimeterSquared;
-import net.tofweb.jan.measurement.MilliAmpere;
-import net.tofweb.jan.measurement.MilliVolt;
+import net.tofweb.jann.exception.PhysicsException;
+import net.tofweb.jann.measurement.KilohmPerCentimeterSquared;
+import net.tofweb.jann.measurement.MilliAmpere;
+import net.tofweb.jann.measurement.MilliVolt;
+import net.tofweb.jann.potential.Potential;
 
 public class PotentialTest {
 

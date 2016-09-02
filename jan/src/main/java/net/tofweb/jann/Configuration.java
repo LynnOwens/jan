@@ -1,4 +1,4 @@
-package net.tofweb.jan;
+package net.tofweb.jann;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,11 +7,11 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-import net.tofweb.jan.measurement.KilohmPerCentimeterSquared;
-import net.tofweb.jan.measurement.MicroFaradPerCentimeterSquared;
-import net.tofweb.jan.measurement.MicroMeter;
-import net.tofweb.jan.measurement.MilliVolt;
-import net.tofweb.jan.potential.Potential;
+import net.tofweb.jann.measurement.KilohmPerCentimeterSquared;
+import net.tofweb.jann.measurement.MicroFaradPerCentimeterSquared;
+import net.tofweb.jann.measurement.MicroMeter;
+import net.tofweb.jann.measurement.MilliVolt;
+import net.tofweb.jann.potential.Potential;
 
 public class Configuration {
 

@@ -1,4 +1,4 @@
-package net.tofweb.jan.measurement;
+package net.tofweb.jann.measurement;
 
 import java.math.BigDecimal;
 

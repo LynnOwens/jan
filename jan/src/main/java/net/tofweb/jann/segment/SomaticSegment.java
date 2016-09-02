@@ -1,13 +1,13 @@
-package net.tofweb.jan.segment;
+package net.tofweb.jann.segment;
 
 import java.math.BigDecimal;
 
-import net.tofweb.jan.Configuration;
-import net.tofweb.jan.measurement.KilohmPerCentimeterSquared;
-import net.tofweb.jan.measurement.MicroFaradPerCentimeterSquared;
-import net.tofweb.jan.measurement.MicroMeter;
-import net.tofweb.jan.neuron.ArtificialNeuron;
-import net.tofweb.jan.potential.Potential;
+import net.tofweb.jann.Configuration;
+import net.tofweb.jann.measurement.KilohmPerCentimeterSquared;
+import net.tofweb.jann.measurement.MicroFaradPerCentimeterSquared;
+import net.tofweb.jann.measurement.MicroMeter;
+import net.tofweb.jann.neuron.ArtificialNeuron;
+import net.tofweb.jann.potential.Potential;
 
 public class SomaticSegment extends Segment {
 

@@ -1,4 +1,4 @@
-package net.tofweb.jan;
+package net.tofweb.jann;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -6,7 +6,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import net.tofweb.jan.neuron.ArtificialNeuron;
+import net.tofweb.jann.neuron.ArtificialNeuron;
 
 public class Main {
 	private static final Logger log = Logger.getLogger(Main.class);
