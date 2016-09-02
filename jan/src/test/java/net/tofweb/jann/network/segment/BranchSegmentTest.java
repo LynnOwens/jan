@@ -1,4 +1,4 @@
-package net.tofweb.jan.segment;
+package net.tofweb.jann.network.segment;
 
 public class BranchSegmentTest {
 

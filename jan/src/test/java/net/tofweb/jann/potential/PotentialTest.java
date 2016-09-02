@@ -1,4 +1,4 @@
-package net.tofweb.jan.potential;
+package net.tofweb.jann.potential;
 
 import java.math.BigDecimal;
 
