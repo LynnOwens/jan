@@ -6,7 +6,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import net.tofweb.jann.neuron.ArtificialNeuron;
+import net.tofweb.jann.network.neuron.ArtificialNeuron;
 
 public class Main {
 	private static final Logger log = Logger.getLogger(Main.class);

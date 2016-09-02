@@ -1,8 +1,10 @@
-package net.tofweb.jann.network;
+package net.tofweb.jann.network.synapse;
 
 import org.apache.log4j.Logger;
 
-public class SynapticTerminal {
+import net.tofweb.jann.network.NetworkMember;
+
+public class SynapticTerminal extends NetworkMember {
 
 	private static final Logger log = Logger.getLogger(SynapticTerminal.class);
 	public static final String HOST = "::1";

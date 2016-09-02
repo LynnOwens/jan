@@ -17,6 +17,11 @@
 			<version>2.3.22</version>
 		</dependency>
 		<dependency>
+			<groupId>com.googlecode.java-ipv6</groupId>
+			<artifactId>java-ipv6</artifactId>
+			<version>0.16</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>

@@ -1,10 +1,10 @@
-package net.tofweb.jann.segment;
+package net.tofweb.jann.network.segment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tofweb.jann.network.SynapticTerminal;
-import net.tofweb.jann.neuron.ArtificialNeuron;
+import net.tofweb.jann.network.neuron.ArtificialNeuron;
+import net.tofweb.jann.network.synapse.SynapticTerminal;
 
 public abstract class BranchSegment extends Segment {
 

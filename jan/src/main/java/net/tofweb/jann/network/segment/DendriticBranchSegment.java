@@ -1,7 +1,7 @@
-package net.tofweb.jann.segment;
+package net.tofweb.jann.network.segment;
 
 import net.tofweb.jann.Configuration;
-import net.tofweb.jann.neuron.ArtificialNeuron;
+import net.tofweb.jann.network.neuron.ArtificialNeuron;
 
 public class DendriticBranchSegment extends BranchSegment {
 

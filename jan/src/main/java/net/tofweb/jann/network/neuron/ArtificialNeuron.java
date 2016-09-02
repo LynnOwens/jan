@@ -1,20 +1,21 @@
-package net.tofweb.jann.neuron;
+package net.tofweb.jann.network.neuron;
 
 import java.net.Inet6Address;
 import java.util.List;
 
 import net.tofweb.jann.Configuration;
+import net.tofweb.jann.network.NetworkMember;
 import net.tofweb.jann.network.SynapticAddressManager;
-import net.tofweb.jann.segment.AxonalBranchSegment;
-import net.tofweb.jann.segment.DendriticBranchSegment;
-import net.tofweb.jann.segment.SomaticSegment;
+import net.tofweb.jann.network.segment.AxonalBranchSegment;
+import net.tofweb.jann.network.segment.DendriticBranchSegment;
+import net.tofweb.jann.network.segment.SomaticSegment;
 
-public class ArtificialNeuron {
+public class ArtificialNeuron extends NetworkMember {
 	private SomaticSegment soma;
 	private List<DendriticBranchSegment> dendrites;
 	private AxonalBranchSegment axonHillock;
 	private Integer maxNumberDendriteArbors = Configuration.getMaxNumberDendriteArbors();
-	private Inet6Address address;
+	// private Inet6Address address;
 
 	// TODO: Put a range around this
 	private Integer numRemainingAxonalChildren = Configuration.getAverageNumOfAxonBranches();
@@ -39,9 +40,9 @@ public class ArtificialNeuron {
 		 * 
 		 * xx3 - arbors on one AN
 		 * 
-		 * 3:222 - ANs in one network
+		 * 3:222 - ANs in one subregion
 		 * 
-		 * 2:1 - networks in one region
+		 * 2:1 - subregions in one region
 		 * 
 		 * x11 - regions in one lobe
 		 * 
@@ -109,6 +110,7 @@ public class ArtificialNeuron {
 		this.maxNumberDendriteArbors = maxNumberDendriteArbors;
 	}
 
+	@Override
 	public Inet6Address getAddress() {
 		return address;
 	}
