@@ -97,4 +97,15 @@ public abstract class Segment extends NetworkMember {
 		this.parentNeuron = parentNeuron;
 	}
 
+	public LinkedList<IPv6Address> getCoordinates() {
+		return coordinates;
+	}
+
+	public void setCoordinates(LinkedList<IPv6Address> coordinates) {
+		this.coordinates = coordinates;
+	}
+
+	public void addCoordinate(IPv6Address address) {
+		this.coordinates.add(address);
+	}
 }

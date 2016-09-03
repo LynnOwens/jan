@@ -2,6 +2,7 @@ package net.tofweb.jann.network;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -9,6 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import com.googlecode.ipv6.IPv6Address;
 
 import net.tofweb.jann.Configuration;
+import net.tofweb.jann.measurement.MicroMeter;
 
 public class NetworkAddressManager {
 
@@ -40,6 +42,10 @@ public class NetworkAddressManager {
 		} else {
 			return findNewSubnet();
 		}
+	}
+
+	public static LinkedList<IPv6Address> getNewAddresses(IPv6Address last, MicroMeter length) {
+		return null;
 	}
 
 }

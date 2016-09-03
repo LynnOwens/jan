@@ -64,6 +64,7 @@ public class Configuration {
 	 */
 	private static String ulaPrefix;
 	private static String globalId;
+	private static Integer foo = 5;
 
 	private static Properties prop = new Properties();
 
@@ -436,6 +437,14 @@ public class Configuration {
 
 	public static void setGlobalId(String globalId) {
 		Configuration.globalId = globalId;
+	}
+
+	public static Integer getFoo() {
+		return foo;
+	}
+
+	public static void setFoo(Integer foo) {
+		Configuration.foo = foo;
 	}
 
 }
