@@ -20,6 +20,7 @@ public class AxonalBranchSegment extends BranchSegment {
 		setSegmentSplitMaximum(Configuration.getAxonSegmentSplitMaximum());
 		setSynapsesPerMicroMeterSquared(Configuration.getAxonSynapsesPerMicroMeterSquared());
 
+		occupyCoordinates();
 		populateSynapses();
 	}
 
@@ -27,16 +28,6 @@ public class AxonalBranchSegment extends BranchSegment {
 		int maxRemainingAxonalChildren = this.getParentNeuron().getNumRemainingAxonalChildren();
 		int remainingSegmentChildren = ThreadLocalRandom.current().nextInt(0, getSegmentSplitMaximum() + 1);
 		nativeArborize(maxRemainingAxonalChildren, remainingSegmentChildren);
-	}
-
-	private void populateSynapses() {
-		Integer synapsesRemaining = getSynapsesPerMicroMeterSquared() * getSurfaceArea().getMicroMeters().intValue();
-
-		getSynapses().clear();
-		while (synapsesRemaining > 0) {
-			addSynapse(new SynapticTerminal());
-			synapsesRemaining--;
-		}
 	}
 
 	private void nativeArborize(Integer maxRemainingChildren, Integer remainingSegmentSplits) {
@@ -56,6 +47,20 @@ public class AxonalBranchSegment extends BranchSegment {
 					break;
 				}
 			}
+		}
+	}
+
+	private void occupyCoordinates() {
+
+	}
+
+	private void populateSynapses() {
+		Integer synapsesRemaining = getSynapsesPerMicroMeterSquared() * getSurfaceArea().getMicroMeters().intValue();
+
+		getSynapses().clear();
+		while (synapsesRemaining > 0) {
+			addSynapse(new SynapticTerminal());
+			synapsesRemaining--;
 		}
 	}
 }

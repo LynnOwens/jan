@@ -1,8 +1,7 @@
 package net.tofweb.jann.segment;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 import com.googlecode.ipv6.IPv6Address;
 
@@ -25,7 +24,7 @@ public abstract class Segment extends NetworkMember {
 	private ArtificialNeuron parentNeuron;
 	private BigDecimal pi = new BigDecimal("3.14159265359");
 	private BigDecimal two = new BigDecimal("2");
-	private List<IPv6Address> coordinates = new ArrayList<IPv6Address>();
+	private LinkedList<IPv6Address> coordinates = new LinkedList<IPv6Address>();
 
 	public Segment(ArtificialNeuron parentNeuron) {
 		super();
