@@ -4,9 +4,9 @@ import java.util.List;
 
 import net.tofweb.jann.Configuration;
 import net.tofweb.jann.network.NetworkMember;
-import net.tofweb.jann.network.segment.AxonalBranchSegment;
-import net.tofweb.jann.network.segment.DendriticBranchSegment;
-import net.tofweb.jann.network.segment.SomaticSegment;
+import net.tofweb.jann.segment.AxonalBranchSegment;
+import net.tofweb.jann.segment.DendriticBranchSegment;
+import net.tofweb.jann.segment.SomaticSegment;
 
 public class ArtificialNeuron extends NetworkMember {
 	private SomaticSegment soma;

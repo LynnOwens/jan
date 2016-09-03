@@ -1,6 +1,10 @@
-package net.tofweb.jann.network.segment;
+package net.tofweb.jann.segment;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.googlecode.ipv6.IPv6Address;
 
 import net.tofweb.jann.measurement.KilohmPerCentimeterSquared;
 import net.tofweb.jann.measurement.MicroFaradPerCentimeterSquared;
@@ -21,6 +25,7 @@ public abstract class Segment extends NetworkMember {
 	private ArtificialNeuron parentNeuron;
 	private BigDecimal pi = new BigDecimal("3.14159265359");
 	private BigDecimal two = new BigDecimal("2");
+	private List<IPv6Address> coordinates = new ArrayList<IPv6Address>();
 
 	public Segment(ArtificialNeuron parentNeuron) {
 		super();

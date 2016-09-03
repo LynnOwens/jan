@@ -1,4 +1,4 @@
-package net.tofweb.jann.network.segment;
+package net.tofweb.jann.segment;
 
 import net.tofweb.jann.Configuration;
 import net.tofweb.jann.network.neuron.ArtificialNeuron;
