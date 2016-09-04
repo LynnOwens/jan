@@ -47,7 +47,47 @@ public class NetworkAddressManager {
 	public static LinkedList<Coordinate> getNewAddresses(Coordinate last, MicroMeter length) {
 		// int x = last.toLongString().substring(beginIndex, endIndex)
 
+		for (int i = 0; i <= length.getMicroMeters().intValue(); i++) {
+			Integer prevX = last.getX();
+			Integer prevY = last.getY();
+			Integer prevZ = last.getZ();
+
+			Integer randDirection;
+			
+			while (randDirection == null) {
+				Integer possibleDirection = getRandomDirection();
+				if ()
+			}
+
+			switch (randDirection) {
+			case 1:
+				// decrement x
+				break;
+			case 2:
+				// decrement y
+				break;
+			case 3:
+				// decrement z
+				break;
+			case 4:
+				// increment z
+				break;
+			case 5:
+				// increment y
+				break;
+			case 6:
+				// increment x
+				break;
+			default:
+
+			}
+		}
+
 		return null;
+	}
+
+	private static Integer getRandomDirection() {
+		return ThreadLocalRandom.current().nextInt(1, 7);
 	}
 
 }
