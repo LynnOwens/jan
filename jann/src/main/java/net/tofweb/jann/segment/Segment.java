@@ -3,8 +3,6 @@ package net.tofweb.jann.segment;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 
-import com.googlecode.ipv6.IPv6Address;
-
 import net.tofweb.jann.measurement.KilohmPerCentimeterSquared;
 import net.tofweb.jann.measurement.MicroFaradPerCentimeterSquared;
 import net.tofweb.jann.measurement.MicroMeter;
@@ -24,7 +22,7 @@ public abstract class Segment extends NetworkMember {
 	private ArtificialNeuron parentNeuron;
 	private BigDecimal pi = new BigDecimal("3.14159265359");
 	private BigDecimal two = new BigDecimal("2");
-	private LinkedList<IPv6Address> coordinates = new LinkedList<IPv6Address>();
+	private LinkedList<Coordinate> coordinates = new LinkedList<Coordinate>();
 
 	public Segment(ArtificialNeuron parentNeuron) {
 		super();
@@ -97,15 +95,15 @@ public abstract class Segment extends NetworkMember {
 		this.parentNeuron = parentNeuron;
 	}
 
-	public LinkedList<IPv6Address> getCoordinates() {
+	public LinkedList<Coordinate> getCoordinates() {
 		return coordinates;
 	}
 
-	public void setCoordinates(LinkedList<IPv6Address> coordinates) {
+	public void setCoordinates(LinkedList<Coordinate> coordinates) {
 		this.coordinates = coordinates;
 	}
 
-	public void addCoordinate(IPv6Address address) {
-		this.coordinates.add(address);
+	public void addCoordinate(Coordinate coordinate) {
+		this.coordinates.add(coordinate);
 	}
 }
