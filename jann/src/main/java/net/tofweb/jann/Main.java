@@ -3,6 +3,7 @@ package net.tofweb.jann;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -15,7 +16,20 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			Main m = new Main();
-			m.begin();
+			// m.begin();
+			String example = "2001:0db8:85a3:0000:0000:8a2e:0370:7334";
+			String sixthHextet = example.substring(StringUtils.ordinalIndexOf(example, ":", 5) + 1,
+					StringUtils.ordinalIndexOf(example, ":", 6));
+			String seventhHextet = example.substring(StringUtils.ordinalIndexOf(example, ":", 6) + 1,
+					StringUtils.ordinalIndexOf(example, ":", 7));
+			String eighthHextet = example.substring(StringUtils.ordinalIndexOf(example, ":", 7) + 1);
+			log.debug(sixthHextet);
+			log.debug(seventhHextet);
+			log.debug(eighthHextet);
+
+			log.debug(Integer.parseInt(sixthHextet, 16));
+			log.debug(Integer.parseInt(seventhHextet, 16));
+			log.debug(Integer.parseInt(eighthHextet, 16));
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

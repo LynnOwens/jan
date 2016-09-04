@@ -44,7 +44,9 @@ public class NetworkAddressManager {
 		}
 	}
 
-	public static LinkedList<IPv6Address> getNewAddresses(IPv6Address last, MicroMeter length) {
+	public static LinkedList<Coordinate> getNewAddresses(Coordinate last, MicroMeter length) {
+		// int x = last.toLongString().substring(beginIndex, endIndex)
+
 		return null;
 	}
 

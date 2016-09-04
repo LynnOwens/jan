@@ -7,6 +7,7 @@ import net.tofweb.jann.measurement.KilohmPerCentimeterSquared;
 import net.tofweb.jann.measurement.MicroFaradPerCentimeterSquared;
 import net.tofweb.jann.measurement.MicroMeter;
 import net.tofweb.jann.measurement.MicroMeterSquared;
+import net.tofweb.jann.network.Coordinate;
 import net.tofweb.jann.network.NetworkMember;
 import net.tofweb.jann.network.neuron.ArtificialNeuron;
 import net.tofweb.jann.potential.Potential;
