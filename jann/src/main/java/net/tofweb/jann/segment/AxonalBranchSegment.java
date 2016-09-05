@@ -1,8 +1,12 @@
 package net.tofweb.jann.segment;
 
+import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import net.tofweb.jann.Configuration;
+import net.tofweb.jann.network.Coordinate;
 import net.tofweb.jann.network.NetworkAddressManager;
 import net.tofweb.jann.network.neuron.ArtificialNeuron;
 import net.tofweb.jann.network.synapse.SynapticTerminal;
@@ -20,7 +24,17 @@ public class AxonalBranchSegment extends BranchSegment {
 		setRestingPotential(Configuration.getAxonRestingPotential());
 		setSegmentSplitMaximum(Configuration.getAxonSegmentSplitMaximum());
 		setSynapsesPerMicroMeterSquared(Configuration.getAxonSynapsesPerMicroMeterSquared());
-		setCoordinates(NetworkAddressManager.buildCoordinates(parentSegment.getCoordinates().getLast(), getLength()));
+
+		LinkedList<Coordinate> parentCoordinates = parentSegment.getCoordinates();
+		LinkedList<Coordinate> coordinates = new LinkedList<Coordinate>();
+
+		if (CollectionUtils.isEmpty(parentCoordinates)) {
+			coordinates = NetworkAddressManager.buildCoordinates(new Coordinate(), getLength());
+		} else {
+			coordinates = NetworkAddressManager.buildCoordinates(parentSegment.getCoordinates().getLast(), getLength());
+		}
+
+		setCoordinates(coordinates);
 
 		populateSynapses();
 	}

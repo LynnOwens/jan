@@ -30,6 +30,7 @@ public class Coordinate {
 		this.z = z;
 	}
 
+	// Preserves subnet and unused hextet
 	private IPv6Address calcAddress(IPv6Address addressTemplate, Integer x2, Integer y2, Integer z2) {
 		String templateAddress = addressTemplate.toLongString();
 		String sixthHextet = StringUtils.leftPad(Integer.toHexString(x), 4, "0");

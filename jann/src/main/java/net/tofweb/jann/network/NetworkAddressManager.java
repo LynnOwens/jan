@@ -1,12 +1,9 @@
 package net.tofweb.jann.network;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.googlecode.ipv6.IPv6Address;
@@ -16,35 +13,6 @@ import net.tofweb.jann.measurement.MicroMeter;
 
 public class NetworkAddressManager {
 	private static final Logger log = Logger.getLogger(NetworkAddressManager.class);
-	private static Map<Integer, List<Integer>> usedAddressMap = new HashMap<Integer, List<Integer>>();
-
-	/**
-	 * Returns the first address on a new subnet
-	 * 
-	 * @return
-	 */
-	public static IPv6Address getNewAddress() {
-		StringBuilder addressStringBuilder = new StringBuilder();
-		addressStringBuilder.append(Configuration.getUlaPrefix());
-		addressStringBuilder.append(Configuration.getGlobalId());
-		addressStringBuilder.append(findNewSubnet());
-		addressStringBuilder.append("::::1");
-		String addressString = addressStringBuilder.toString();
-		byte[] addressByteArray = addressString.getBytes();
-
-		return IPv6Address.fromByteArray(addressByteArray);
-	}
-
-	private static String findNewSubnet() {
-		Integer random = ThreadLocalRandom.current().nextInt(1, 65535);
-
-		if (!usedAddressMap.keySet().contains(random)) {
-			usedAddressMap.put(random, new ArrayList<Integer>());
-			return Integer.toHexString(random);
-		} else {
-			return findNewSubnet();
-		}
-	}
 
 	public static LinkedList<Coordinate> buildCoordinates(Coordinate last, MicroMeter length) {
 		LinkedList<Coordinate> newCoordinates = new LinkedList<Coordinate>();
@@ -58,7 +26,7 @@ public class NetworkAddressManager {
 	private static Coordinate buildCoordinate(Coordinate last) {
 		Coordinate potentialCoordinate;
 
-		if (last == null) {
+		if (last.getAddress() == null) {
 			potentialCoordinate = buildRandomCoordinate();
 		} else {
 			potentialCoordinate = buildSequentialCoordinate(last);
@@ -74,9 +42,28 @@ public class NetworkAddressManager {
 	}
 
 	private static Coordinate buildRandomCoordinate() {
+		StringBuilder addressStringBuilder = new StringBuilder();
+		addressStringBuilder.append(Configuration.getUlaPrefix());
+		addressStringBuilder.append(Configuration.getGlobalId());
+		addressStringBuilder.append(":");
+		addressStringBuilder.append(buildRandomHextet()); // Subnet
+		addressStringBuilder.append(":");
+		addressStringBuilder.append(buildRandomHextet()); // Unused
+		addressStringBuilder.append(":");
+		addressStringBuilder.append(buildRandomHextet()); // X
+		addressStringBuilder.append(":");
+		addressStringBuilder.append(buildRandomHextet()); // Y
+		addressStringBuilder.append(":");
+		addressStringBuilder.append(buildRandomHextet()); // Z
+
 		Integer x = ThreadLocalRandom.current().nextInt(0, 65535);
 		Integer y = ThreadLocalRandom.current().nextInt(0, 65535);
 		Integer z = ThreadLocalRandom.current().nextInt(0, 65535);
+
+		byte[] addressByteArray = addressStringBuilder.toString().getBytes();
+		IPv6Address randomAddress = IPv6Address.fromByteArray(addressByteArray);
+
+		return new Coordinate(randomAddress, x, y, z);
 	}
 
 	private static Coordinate buildSequentialCoordinate(Coordinate last) {
@@ -84,7 +71,7 @@ public class NetworkAddressManager {
 		Integer y = last.getY();
 		Integer z = last.getZ();
 
-		Integer randDirection = getRandomDirection();
+		Integer randDirection = randomizeDirection();
 
 		switch (randDirection) {
 		case 1:
@@ -117,7 +104,12 @@ public class NetworkAddressManager {
 		return false;
 	}
 
-	private static Integer getRandomDirection() {
+	private static String buildRandomHextet() {
+		Integer randomInt = ThreadLocalRandom.current().nextInt(0, 65535);
+		return StringUtils.leftPad(Integer.toHexString(randomInt), 4, "0");
+	}
+
+	private static Integer randomizeDirection() {
 		return ThreadLocalRandom.current().nextInt(1, 7);
 	}
 
