@@ -3,7 +3,6 @@ package net.tofweb.jann;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -16,53 +15,7 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			Main m = new Main();
-			// m.begin();
-			String example = "2001:0db8:85a3:0000:0000:8a2e:0370:7334";
-
-			String sixthHextet = StringUtils.leftPad(Integer.toHexString(6666), 4, "0");
-			String seventhHextet = StringUtils.leftPad(Integer.toHexString(7777), 4, "0");
-			String eighthHextet = StringUtils.leftPad(Integer.toHexString(8888), 4, "0");
-
-			log.debug(Integer.toHexString(6666));
-			log.debug(Integer.toHexString(7777));
-			log.debug(Integer.toHexString(8888));
-
-			StringBuilder newAddress = new StringBuilder(
-					example.substring(0, StringUtils.ordinalIndexOf(example, ":", 5)));
-			newAddress.append(":");
-			newAddress.append(sixthHextet);
-			newAddress.append(":");
-			newAddress.append(seventhHextet);
-			newAddress.append(":");
-			newAddress.append(eighthHextet);
-
-			log.debug(newAddress);
-
-			// String sixthHextet =
-			// example.substring(StringUtils.ordinalIndexOf(example, ":", 5) +
-			// 1,
-			// StringUtils.ordinalIndexOf(example, ":", 6));
-			// String seventhHextet =
-			// example.substring(StringUtils.ordinalIndexOf(example, ":", 6) +
-			// 1,
-			// StringUtils.ordinalIndexOf(example, ":", 7));
-			// String eighthHextet =
-			// example.substring(StringUtils.ordinalIndexOf(example, ":", 7) +
-			// 1);
-			// log.debug(sixthHextet);
-			// log.debug(seventhHextet);
-			// log.debug(eighthHextet);
-			//
-			// log.debug(Integer.parseInt(sixthHextet, 16));
-			// log.debug(Integer.parseInt(seventhHextet, 16));
-			// log.debug(Integer.parseInt(eighthHextet, 16));
-			//
-			// log.debug(StringUtils.leftPad(Integer.toHexString(Integer.parseInt(sixthHextet,
-			// 16)), 4, "0"));
-			// log.debug(StringUtils.leftPad(Integer.toHexString(Integer.parseInt(seventhHextet,
-			// 16)), 4, "0"));
-			// log.debug(StringUtils.leftPad(Integer.toHexString(Integer.parseInt(eighthHextet,
-			// 16)), 4, "0"));
+			m.begin();
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

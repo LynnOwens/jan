@@ -20,7 +20,7 @@ public class AxonalBranchSegment extends BranchSegment {
 		setRestingPotential(Configuration.getAxonRestingPotential());
 		setSegmentSplitMaximum(Configuration.getAxonSegmentSplitMaximum());
 		setSynapsesPerMicroMeterSquared(Configuration.getAxonSynapsesPerMicroMeterSquared());
-		setCoordinates(NetworkAddressManager.getNewAddresses(parentSegment.getCoordinates().getLast(), getLength()));
+		setCoordinates(NetworkAddressManager.buildCoordinates(parentSegment.getCoordinates().getLast(), getLength()));
 
 		populateSynapses();
 	}

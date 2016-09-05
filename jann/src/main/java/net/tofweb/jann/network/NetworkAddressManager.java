@@ -7,13 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.apache.log4j.Logger;
+
 import com.googlecode.ipv6.IPv6Address;
 
 import net.tofweb.jann.Configuration;
 import net.tofweb.jann.measurement.MicroMeter;
 
 public class NetworkAddressManager {
-
+	private static final Logger log = Logger.getLogger(NetworkAddressManager.class);
 	private static Map<Integer, List<Integer>> usedAddressMap = new HashMap<Integer, List<Integer>>();
 
 	/**
@@ -44,46 +46,75 @@ public class NetworkAddressManager {
 		}
 	}
 
-	public static LinkedList<Coordinate> getNewAddresses(Coordinate last, MicroMeter length) {
-		// int x = last.toLongString().substring(beginIndex, endIndex)
-
+	public static LinkedList<Coordinate> buildCoordinates(Coordinate last, MicroMeter length) {
+		LinkedList<Coordinate> newCoordinates = new LinkedList<Coordinate>();
 		for (int i = 0; i <= length.getMicroMeters().intValue(); i++) {
-			Integer prevX = last.getX();
-			Integer prevY = last.getY();
-			Integer prevZ = last.getZ();
-
-			Integer randDirection;
-			
-			while (randDirection == null) {
-				Integer possibleDirection = getRandomDirection();
-				if ()
-			}
-
-			switch (randDirection) {
-			case 1:
-				// decrement x
-				break;
-			case 2:
-				// decrement y
-				break;
-			case 3:
-				// decrement z
-				break;
-			case 4:
-				// increment z
-				break;
-			case 5:
-				// increment y
-				break;
-			case 6:
-				// increment x
-				break;
-			default:
-
-			}
+			newCoordinates.add(buildCoordinate(last));
 		}
 
-		return null;
+		return newCoordinates;
+	}
+
+	private static Coordinate buildCoordinate(Coordinate last) {
+		Coordinate potentialCoordinate;
+
+		if (last == null) {
+			potentialCoordinate = buildRandomCoordinate();
+		} else {
+			potentialCoordinate = buildSequentialCoordinate(last);
+		}
+
+		boolean isCoordinateExisting = testCoordinateExistence(potentialCoordinate);
+
+		if (isCoordinateExisting) {
+			return buildCoordinate(last);
+		}
+
+		return potentialCoordinate;
+	}
+
+	private static Coordinate buildRandomCoordinate() {
+		Integer x = ThreadLocalRandom.current().nextInt(0, 65535);
+		Integer y = ThreadLocalRandom.current().nextInt(0, 65535);
+		Integer z = ThreadLocalRandom.current().nextInt(0, 65535);
+	}
+
+	private static Coordinate buildSequentialCoordinate(Coordinate last) {
+		Integer x = last.getX();
+		Integer y = last.getY();
+		Integer z = last.getZ();
+
+		Integer randDirection = getRandomDirection();
+
+		switch (randDirection) {
+		case 1:
+			x--;
+			break;
+		case 2:
+			y--;
+			break;
+		case 3:
+			z--;
+			break;
+		case 4:
+			z++;
+			break;
+		case 5:
+			y++;
+			break;
+		case 6:
+			x++;
+			break;
+		default:
+			log.error("Impossible situation");
+		}
+
+		return new Coordinate(last.getAddress(), x, y, z);
+	}
+
+	private static boolean testCoordinateExistence(Coordinate potentialCoordinate) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	private static Integer getRandomDirection() {
