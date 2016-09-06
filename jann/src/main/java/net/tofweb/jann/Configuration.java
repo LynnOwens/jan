@@ -62,9 +62,6 @@ public class Configuration {
 	/*
 	 * Networking
 	 */
-	private static String ulaPrefix;
-	private static String globalId;
-	private static Integer foo = 5;
 
 	private static Properties prop = new Properties();
 
@@ -164,12 +161,6 @@ public class Configuration {
 		axonSegmentSplitMaximum = Integer.valueOf(prop.getProperty("segment.axonal.arbor.branch.split.max", "3"));
 
 		axonSynapsesPerMicroMeterSquared = Integer.valueOf(prop.getProperty("segment.axonal.synapse.density", "7"));
-
-		/*
-		 * Networking
-		 */
-		ulaPrefix = prop.getProperty("network.address.prefix", "fd");
-		globalId = prop.getProperty("network.address.globalid", "f0:9250:83e6");
 	}
 
 	private static void conditinallyLoad() {
@@ -419,32 +410,6 @@ public class Configuration {
 
 	public static void setMaxNumberDendriteArbors(Integer maxNumberDendriteArbors) {
 		Configuration.maxNumberDendriteArbors = maxNumberDendriteArbors;
-	}
-
-	public static String getUlaPrefix() {
-		Configuration.conditinallyLoad();
-		return ulaPrefix;
-	}
-
-	public static void setUlaPrefix(String ulaPrefix) {
-		Configuration.ulaPrefix = ulaPrefix;
-	}
-
-	public static String getGlobalId() {
-		Configuration.conditinallyLoad();
-		return globalId;
-	}
-
-	public static void setGlobalId(String globalId) {
-		Configuration.globalId = globalId;
-	}
-
-	public static Integer getFoo() {
-		return foo;
-	}
-
-	public static void setFoo(Integer foo) {
-		Configuration.foo = foo;
 	}
 
 }

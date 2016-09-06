@@ -38,7 +38,7 @@ public class Coordinate {
 		String eighthHextet = StringUtils.leftPad(Integer.toHexString(z), 4, "0");
 
 		StringBuilder newAddress = new StringBuilder(
-				templateAddress.substring(0, StringUtils.ordinalIndexOf(templateAddress, ":", 5)));
+				templateAddress.substring(0, StringUtils.ordinalIndexOf(templateAddress, ":", 2)));
 
 		newAddress.append(":");
 		newAddress.append(sixthHextet);
@@ -55,13 +55,13 @@ public class Coordinate {
 		String textualRepresentation = address.toLongString();
 
 		String sixthHextet = textualRepresentation.substring(
-				StringUtils.ordinalIndexOf(textualRepresentation, ":", 5) + 1,
-				StringUtils.ordinalIndexOf(textualRepresentation, ":", 6));
+				StringUtils.ordinalIndexOf(textualRepresentation, ":", 2) + 1,
+				StringUtils.ordinalIndexOf(textualRepresentation, ":", 3));
 		String seventhHextet = textualRepresentation.substring(
-				StringUtils.ordinalIndexOf(textualRepresentation, ":", 6) + 1,
-				StringUtils.ordinalIndexOf(textualRepresentation, ":", 7));
+				StringUtils.ordinalIndexOf(textualRepresentation, ":", 3) + 1,
+				StringUtils.ordinalIndexOf(textualRepresentation, ":", 4));
 		String eighthHextet = textualRepresentation
-				.substring(StringUtils.ordinalIndexOf(textualRepresentation, ":", 7) + 1);
+				.substring(StringUtils.ordinalIndexOf(textualRepresentation, ":", 4) + 1);
 
 		x = Integer.parseInt(sixthHextet, 16);
 		y = Integer.parseInt(seventhHextet, 16);
