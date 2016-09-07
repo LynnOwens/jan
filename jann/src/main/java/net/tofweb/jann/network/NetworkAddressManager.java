@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.googlecode.ipv6.IPv6Address;
 
+import net.tofweb.jann.Configuration;
 import net.tofweb.jann.measurement.MicroMeter;
 
 public class NetworkAddressManager {
@@ -42,9 +43,12 @@ public class NetworkAddressManager {
 
 	private static Coordinate buildRandomCoordinate() {
 		StringBuilder addressStringBuilder = new StringBuilder();
-		addressStringBuilder.append("fd00"); // Prefix
+		addressStringBuilder.append(Configuration.getUlaPrefix()); // Prefix
+		addressStringBuilder.append(Configuration.getGlobalId()); // Prefix
 		addressStringBuilder.append(":");
 		addressStringBuilder.append(buildRandomHextet()); // Subnet
+		addressStringBuilder.append(":");
+		addressStringBuilder.append(buildRandomHextet()); // Unused
 		addressStringBuilder.append(":");
 		addressStringBuilder.append(buildRandomHextet()); // X
 		addressStringBuilder.append(":");

@@ -33,12 +33,12 @@ public class Coordinate {
 	// Preserves subnet and unused hextet
 	private IPv6Address calcAddress(IPv6Address addressTemplate, Integer x2, Integer y2, Integer z2) {
 		String templateAddress = addressTemplate.toLongString();
-		String sixthHextet = StringUtils.leftPad(Integer.toHexString(x), 4, "0");
-		String seventhHextet = StringUtils.leftPad(Integer.toHexString(y), 4, "0");
-		String eighthHextet = StringUtils.leftPad(Integer.toHexString(z), 4, "0");
+		String sixthHextet = StringUtils.leftPad(Integer.toHexString(x2), 4, "0");
+		String seventhHextet = StringUtils.leftPad(Integer.toHexString(y2), 4, "0");
+		String eighthHextet = StringUtils.leftPad(Integer.toHexString(z2), 4, "0");
 
 		StringBuilder newAddress = new StringBuilder(
-				templateAddress.substring(0, StringUtils.ordinalIndexOf(templateAddress, ":", 2)));
+				templateAddress.substring(0, StringUtils.ordinalIndexOf(templateAddress, ":", 5)));
 
 		newAddress.append(":");
 		newAddress.append(sixthHextet);
@@ -47,21 +47,20 @@ public class Coordinate {
 		newAddress.append(":");
 		newAddress.append(eighthHextet);
 
-		byte[] addressByteArray = newAddress.toString().getBytes();
-		return IPv6Address.fromByteArray(addressByteArray);
+		return IPv6Address.fromString(newAddress.toString());
 	}
 
 	private void calcCoords(IPv6Address address) {
 		String textualRepresentation = address.toLongString();
 
 		String sixthHextet = textualRepresentation.substring(
-				StringUtils.ordinalIndexOf(textualRepresentation, ":", 2) + 1,
-				StringUtils.ordinalIndexOf(textualRepresentation, ":", 3));
+				StringUtils.ordinalIndexOf(textualRepresentation, ":", 5) + 1,
+				StringUtils.ordinalIndexOf(textualRepresentation, ":", 6));
 		String seventhHextet = textualRepresentation.substring(
-				StringUtils.ordinalIndexOf(textualRepresentation, ":", 3) + 1,
-				StringUtils.ordinalIndexOf(textualRepresentation, ":", 4));
+				StringUtils.ordinalIndexOf(textualRepresentation, ":", 6) + 1,
+				StringUtils.ordinalIndexOf(textualRepresentation, ":", 7));
 		String eighthHextet = textualRepresentation
-				.substring(StringUtils.ordinalIndexOf(textualRepresentation, ":", 4) + 1);
+				.substring(StringUtils.ordinalIndexOf(textualRepresentation, ":", 7) + 1);
 
 		x = Integer.parseInt(sixthHextet, 16);
 		y = Integer.parseInt(seventhHextet, 16);
