@@ -17,7 +17,9 @@ public class NetworkAddressManager {
 	public static LinkedList<Coordinate> buildCoordinates(Coordinate last, MicroMeter length) {
 		LinkedList<Coordinate> newCoordinates = new LinkedList<Coordinate>();
 		for (int i = 0; i <= length.getMicroMeters().intValue(); i++) {
-			newCoordinates.add(buildCoordinate(last));
+			Coordinate nextCoordinate = buildCoordinate(last);
+			newCoordinates.add(nextCoordinate);
+			last = nextCoordinate;
 		}
 
 		return newCoordinates;
@@ -28,8 +30,10 @@ public class NetworkAddressManager {
 
 		if (last.getAddress() == null) {
 			potentialCoordinate = buildRandomCoordinate();
+			log.debug("Built random coordinate " + potentialCoordinate);
 		} else {
 			potentialCoordinate = buildSequentialCoordinate(last);
+			log.debug("Built sequential coordinate " + potentialCoordinate);
 		}
 
 		boolean isCoordinateExisting = testCoordinateExistence(potentialCoordinate);
