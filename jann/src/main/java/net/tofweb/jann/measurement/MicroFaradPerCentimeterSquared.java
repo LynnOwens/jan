@@ -6,6 +6,11 @@ public class MicroFaradPerCentimeterSquared {
 
 	private BigDecimal microFarads;
 
+	public MicroFaradPerCentimeterSquared(Integer microFarads) {
+		super();
+		this.microFarads = new BigDecimal(microFarads);
+	}
+
 	public MicroFaradPerCentimeterSquared(BigDecimal microFarads) {
 		super();
 		this.microFarads = microFarads;

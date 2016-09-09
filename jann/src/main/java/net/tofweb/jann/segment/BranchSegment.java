@@ -3,8 +3,8 @@ package net.tofweb.jann.segment;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tofweb.jann.network.neuron.ArtificialNeuron;
 import net.tofweb.jann.network.synapse.SynapticTerminal;
+import net.tofweb.jann.neuron.ArtificialNeuron;
 
 public abstract class BranchSegment extends Segment {
 

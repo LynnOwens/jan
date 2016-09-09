@@ -1,4 +1,4 @@
-package net.tofweb.jann.network.neuron;
+package net.tofweb.jann.neuron;
 
 import java.util.List;
 

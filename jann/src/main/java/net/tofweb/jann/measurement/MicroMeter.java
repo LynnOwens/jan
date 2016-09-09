@@ -6,11 +6,16 @@ public class MicroMeter {
 
 	private BigDecimal microMeters;
 
+	public MicroMeter(Integer microMeters) {
+		super();
+		this.microMeters = new BigDecimal(microMeters);
+	}
+
 	public MicroMeter(BigDecimal microMeters) {
 		super();
 		this.microMeters = microMeters;
 	}
-	
+
 	public MicroMeterSquared square() {
 		BigDecimal um = getMicroMeters();
 		return new MicroMeterSquared(um.multiply(um));

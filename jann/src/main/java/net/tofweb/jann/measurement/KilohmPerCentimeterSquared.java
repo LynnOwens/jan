@@ -6,6 +6,11 @@ public class KilohmPerCentimeterSquared {
 
 	private BigDecimal kilohms;
 
+	public KilohmPerCentimeterSquared(Integer kilohms) {
+		super();
+		this.kilohms = new BigDecimal(kilohms);
+	}
+
 	public KilohmPerCentimeterSquared(BigDecimal kilohms) {
 		super();
 		this.kilohms = kilohms;

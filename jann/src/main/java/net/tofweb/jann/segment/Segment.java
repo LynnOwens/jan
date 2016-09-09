@@ -3,22 +3,25 @@ package net.tofweb.jann.segment;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import net.tofweb.jann.measurement.KilohmPerCentimeterSquared;
 import net.tofweb.jann.measurement.MicroFaradPerCentimeterSquared;
 import net.tofweb.jann.measurement.MicroMeter;
 import net.tofweb.jann.measurement.MicroMeterSquared;
 import net.tofweb.jann.network.Coordinate;
+import net.tofweb.jann.network.NetworkAddressManager;
 import net.tofweb.jann.network.NetworkMember;
-import net.tofweb.jann.network.neuron.ArtificialNeuron;
+import net.tofweb.jann.neuron.ArtificialNeuron;
 import net.tofweb.jann.potential.Potential;
 
 public abstract class Segment extends NetworkMember {
 
-	private MicroMeter length;
-	private MicroMeter radius;
-	private MicroFaradPerCentimeterSquared membraneCapacitance;
-	private KilohmPerCentimeterSquared membraneResistance;
-	private KilohmPerCentimeterSquared intracellularResistance;
+	private MicroMeter length = new MicroMeter(0);
+	private MicroMeter radius = new MicroMeter(0);
+	private MicroFaradPerCentimeterSquared membraneCapacitance = new MicroFaradPerCentimeterSquared(0);
+	private KilohmPerCentimeterSquared membraneResistance = new KilohmPerCentimeterSquared(0);
+	private KilohmPerCentimeterSquared intracellularResistance = new KilohmPerCentimeterSquared(0);
 	private Potential restingPotential;
 	private ArtificialNeuron parentNeuron;
 	private BigDecimal pi = new BigDecimal("3.14159265359");
@@ -30,6 +33,11 @@ public abstract class Segment extends NetworkMember {
 		this.parentNeuron = parentNeuron;
 	}
 
+	public Segment(Segment parentSegment) {
+		super();
+		populateCoordinates(parentSegment);
+	}
+
 	public MicroMeterSquared getSurfaceArea() {
 		MicroMeterSquared radiusSquared = getRadius().square();
 		BigDecimal twoTimesPi = two.multiply(pi);
@@ -38,6 +46,19 @@ public abstract class Segment extends NetworkMember {
 		BigDecimal twoTimesPiTimesRadiusSquared = twoTimesPi.multiply(radiusSquared.getMicroMeters());
 		BigDecimal surfaceArea = twoTimesPiTimesRadiusTimesHeight.add(twoTimesPiTimesRadiusSquared);
 		return new MicroMeterSquared(surfaceArea);
+	}
+
+	public void populateCoordinates(Segment parentSegment) {
+		LinkedList<Coordinate> parentCoordinates = parentSegment.getCoordinates();
+		LinkedList<Coordinate> coordinates = new LinkedList<Coordinate>();
+
+		if (CollectionUtils.isEmpty(parentCoordinates)) {
+			coordinates = NetworkAddressManager.buildCoordinates(new Coordinate(), getLength());
+		} else {
+			coordinates = NetworkAddressManager.buildCoordinates(parentSegment.getCoordinates().getLast(), getLength());
+		}
+
+		setCoordinates(coordinates);
 	}
 
 	public MicroMeter getLength() {
