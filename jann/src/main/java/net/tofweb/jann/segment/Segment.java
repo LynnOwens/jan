@@ -26,6 +26,7 @@ public abstract class Segment extends NetworkMember {
 	private ArtificialNeuron parentNeuron;
 	private BigDecimal pi = new BigDecimal("3.14159265359");
 	private BigDecimal two = new BigDecimal("2");
+	private Segment parentSegment;
 	private LinkedList<Coordinate> coordinates = new LinkedList<Coordinate>();
 
 	public Segment(ArtificialNeuron parentNeuron) {
@@ -35,6 +36,7 @@ public abstract class Segment extends NetworkMember {
 
 	public Segment(Segment parentSegment) {
 		super();
+		this.parentSegment = parentSegment;
 		populateCoordinates(parentSegment);
 	}
 
@@ -110,7 +112,11 @@ public abstract class Segment extends NetworkMember {
 	}
 
 	public ArtificialNeuron getParentNeuron() {
-		return parentNeuron;
+		if (parentNeuron == null && parentSegment != null) {
+			return parentSegment.getParentNeuron();
+		} else {
+			return parentNeuron;
+		}
 	}
 
 	public void setParentNeuron(ArtificialNeuron parentNeuron) {
@@ -127,5 +133,13 @@ public abstract class Segment extends NetworkMember {
 
 	public void addCoordinate(Coordinate coordinate) {
 		this.coordinates.add(coordinate);
+	}
+
+	public Segment getParentSegment() {
+		return parentSegment;
+	}
+
+	public void setParentSegment(Segment parentSegment) {
+		this.parentSegment = parentSegment;
 	}
 }

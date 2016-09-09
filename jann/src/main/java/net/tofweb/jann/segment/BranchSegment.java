@@ -8,15 +8,14 @@ import net.tofweb.jann.neuron.ArtificialNeuron;
 
 public abstract class BranchSegment extends Segment {
 
+	private Integer synapsesPerMicroMeterSquared = 0;
 	private List<SynapticTerminal> synapses = new ArrayList<SynapticTerminal>();
-	private Integer synapsesPerMicroMeterSquared;
 	private List<BranchSegment> childSegments = new ArrayList<BranchSegment>();
-	private Segment parentSegment;
+
 	private Integer segmentSplitMaximum;
 
-	public BranchSegment(ArtificialNeuron parentNeuron, Segment parentSegment) {
-		super(parentNeuron);
-		this.parentSegment = parentSegment;
+	public BranchSegment(Segment parentSegment) {
+		super(parentSegment);
 	}
 
 	public BranchSegment(ArtificialNeuron parentNeuron) {
@@ -45,14 +44,6 @@ public abstract class BranchSegment extends Segment {
 
 	public void addChildSegment(BranchSegment childSegment) {
 		this.childSegments.add(childSegment);
-	}
-
-	public Segment getParentSegment() {
-		return parentSegment;
-	}
-
-	public void setParentSegment(Segment parentSegment) {
-		this.parentSegment = parentSegment;
 	}
 
 	public Integer getSynapsesPerMicroMeterSquared() {

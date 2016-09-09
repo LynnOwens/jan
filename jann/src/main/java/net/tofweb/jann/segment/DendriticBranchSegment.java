@@ -6,7 +6,7 @@ import net.tofweb.jann.neuron.ArtificialNeuron;
 public class DendriticBranchSegment extends BranchSegment {
 
 	public DendriticBranchSegment(ArtificialNeuron parentNeuron, Segment parentSegment) {
-		super(parentNeuron, parentSegment);
+		super(parentSegment);
 
 		setLength(Configuration.getDendriteSegmentLength());
 		setRadius(Configuration.getDendriteSegmentRadius());

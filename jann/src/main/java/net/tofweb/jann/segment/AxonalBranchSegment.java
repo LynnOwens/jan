@@ -8,8 +8,8 @@ import net.tofweb.jann.neuron.ArtificialNeuron;
 
 public class AxonalBranchSegment extends BranchSegment {
 
-	public AxonalBranchSegment(ArtificialNeuron parentNeuron, Segment parentSegment) {
-		super(parentNeuron, parentSegment);
+	public AxonalBranchSegment(Segment parentSegment) {
+		super(parentSegment);
 
 		setLength(Configuration.getAxonSegmentLength());
 		setRadius(Configuration.getAxonSegmentRadius());
@@ -37,7 +37,7 @@ public class AxonalBranchSegment extends BranchSegment {
 				maxRemainingChildren = parentNeuron.getNumRemainingAxonalChildren();
 
 				if (maxRemainingChildren > 0) {
-					AxonalBranchSegment nextChild = new AxonalBranchSegment(parentNeuron, this);
+					AxonalBranchSegment nextChild = new AxonalBranchSegment(this);
 					this.addChildSegment(nextChild);
 					parentNeuron.setNumRemainingAxonalChildren(--maxRemainingChildren);
 					remainingSegmentSplits--;

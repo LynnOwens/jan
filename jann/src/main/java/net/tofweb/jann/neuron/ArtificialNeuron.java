@@ -24,7 +24,7 @@ public class ArtificialNeuron extends NetworkMember {
 		super();
 
 		soma = new SomaticSegment(this);
-		axonHillock = new AxonalBranchSegment(this, soma);
+		axonHillock = new AxonalBranchSegment(soma);
 		axonHillock.arborize();
 	}
 

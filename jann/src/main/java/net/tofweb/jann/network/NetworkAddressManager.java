@@ -29,11 +29,11 @@ public class NetworkAddressManager {
 		Coordinate potentialCoordinate;
 
 		if (last.getAddress() == null) {
-			potentialCoordinate = buildRandomCoordinate();
-			log.debug("Built random coordinate " + potentialCoordinate);
+			potentialCoordinate = buildInitialCoordinate();
+			log.debug("Built initial coordinate " + potentialCoordinate);
 		} else {
-			potentialCoordinate = buildSequentialCoordinate(last);
-			log.debug("Built sequential coordinate " + potentialCoordinate);
+			potentialCoordinate = buildNextCoordinate(last);
+			log.debug("Built next coordinate " + potentialCoordinate);
 		}
 
 		boolean isCoordinateExisting = testCoordinateExistence(potentialCoordinate);
@@ -45,7 +45,7 @@ public class NetworkAddressManager {
 		return potentialCoordinate;
 	}
 
-	private static Coordinate buildRandomCoordinate() {
+	private static Coordinate buildInitialCoordinate() {
 		StringBuilder addressStringBuilder = new StringBuilder();
 		addressStringBuilder.append(Configuration.getUlaPrefix()); // Prefix
 		addressStringBuilder.append(Configuration.getGlobalId()); // Prefix
@@ -60,16 +60,16 @@ public class NetworkAddressManager {
 		addressStringBuilder.append(":");
 		addressStringBuilder.append(buildRandomHextet()); // Z
 
-		Integer x = ThreadLocalRandom.current().nextInt(0, 65535);
-		Integer y = ThreadLocalRandom.current().nextInt(0, 65535);
-		Integer z = ThreadLocalRandom.current().nextInt(0, 65535);
+		// Integer x = ThreadLocalRandom.current().nextInt(0, 65535);
+		// Integer y = ThreadLocalRandom.current().nextInt(0, 65535);
+		// Integer z = ThreadLocalRandom.current().nextInt(0, 65535);
 
 		IPv6Address randomAddress = IPv6Address.fromString(addressStringBuilder.toString());
 
-		return new Coordinate(randomAddress, x, y, z);
+		return new Coordinate(randomAddress, 0, 0, 0);
 	}
 
-	private static Coordinate buildSequentialCoordinate(Coordinate last) {
+	private static Coordinate buildNextCoordinate(Coordinate last) {
 		Integer x = last.getX();
 		Integer y = last.getY();
 		Integer z = last.getZ();
