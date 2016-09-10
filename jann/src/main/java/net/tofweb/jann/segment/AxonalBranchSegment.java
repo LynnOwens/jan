@@ -3,7 +3,6 @@ package net.tofweb.jann.segment;
 import java.util.concurrent.ThreadLocalRandom;
 
 import net.tofweb.jann.Configuration;
-import net.tofweb.jann.network.synapse.SynapticTerminal;
 import net.tofweb.jann.neuron.ArtificialNeuron;
 
 public class AxonalBranchSegment extends BranchSegment {
@@ -20,7 +19,10 @@ public class AxonalBranchSegment extends BranchSegment {
 		setSegmentSplitMaximum(Configuration.getAxonSegmentSplitMaximum());
 		setSynapsesPerMicroMeterSquared(Configuration.getAxonSynapsesPerMicroMeterSquared());
 
-		populateSynapses();
+		// Axons branch about 150 times and are about 1000 coords long each
+		// Dendrites branch about 225 times and are about 180 coords long each
+		// Soma has 1 coord
+		// TODO me
 	}
 
 	public void arborize() {
@@ -49,13 +51,14 @@ public class AxonalBranchSegment extends BranchSegment {
 		}
 	}
 
-	private void populateSynapses() {
-		Integer synapsesRemaining = getSynapsesPerMicroMeterSquared() * getSurfaceArea().getMicroMeters().intValue();
-
-		getSynapses().clear();
-		while (synapsesRemaining > 0) {
-			addSynapse(new SynapticTerminal());
-			synapsesRemaining--;
-		}
-	}
+	// private void populateSynapses() {
+	// Integer synapsesRemaining = getSynapsesPerMicroMeterSquared() *
+	// getSurfaceArea().getMicroMeters().intValue();
+	//
+	// getSynapses().clear();
+	// while (synapsesRemaining > 0) {
+	// addSynapse(new SynapticTerminal());
+	// synapsesRemaining--;
+	// }
+	// }
 }

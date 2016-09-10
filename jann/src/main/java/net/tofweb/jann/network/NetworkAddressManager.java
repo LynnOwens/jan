@@ -50,23 +50,21 @@ public class NetworkAddressManager {
 		addressStringBuilder.append(Configuration.getUlaPrefix()); // Prefix
 		addressStringBuilder.append(Configuration.getGlobalId()); // Prefix
 		addressStringBuilder.append(":");
-		addressStringBuilder.append(buildRandomHextet()); // Subnet
+		// TODO: Determine subnet
+		addressStringBuilder.append("0001"); // Subnet
 		addressStringBuilder.append(":");
-		addressStringBuilder.append(buildRandomHextet()); // Unused
+		// TODO: Determine how to use this block
+		addressStringBuilder.append("0000"); // Unused
 		addressStringBuilder.append(":");
-		addressStringBuilder.append(buildRandomHextet()); // X
+		addressStringBuilder.append("8888"); // X
 		addressStringBuilder.append(":");
-		addressStringBuilder.append(buildRandomHextet()); // Y
+		addressStringBuilder.append("8888"); // Y
 		addressStringBuilder.append(":");
-		addressStringBuilder.append(buildRandomHextet()); // Z
+		addressStringBuilder.append("8888"); // Z
 
-		// Integer x = ThreadLocalRandom.current().nextInt(0, 65535);
-		// Integer y = ThreadLocalRandom.current().nextInt(0, 65535);
-		// Integer z = ThreadLocalRandom.current().nextInt(0, 65535);
+		IPv6Address initialAddress = IPv6Address.fromString(addressStringBuilder.toString());
 
-		IPv6Address randomAddress = IPv6Address.fromString(addressStringBuilder.toString());
-
-		return new Coordinate(randomAddress, 0, 0, 0);
+		return new Coordinate(initialAddress);
 	}
 
 	private static Coordinate buildNextCoordinate(Coordinate last) {
@@ -98,6 +96,9 @@ public class NetworkAddressManager {
 		default:
 			log.error("Impossible situation");
 		}
+
+		// FIXME: If we wrap then increment the next higher scale?
+		// How do we handle wrap?
 
 		return new Coordinate(last.getAddress(), x, y, z);
 	}

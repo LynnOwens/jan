@@ -8,7 +8,6 @@ import org.apache.commons.collections4.CollectionUtils;
 import net.tofweb.jann.measurement.KilohmPerCentimeterSquared;
 import net.tofweb.jann.measurement.MicroFaradPerCentimeterSquared;
 import net.tofweb.jann.measurement.MicroMeter;
-import net.tofweb.jann.measurement.MicroMeterSquared;
 import net.tofweb.jann.network.Coordinate;
 import net.tofweb.jann.network.NetworkAddressManager;
 import net.tofweb.jann.network.NetworkMember;
@@ -40,15 +39,18 @@ public abstract class Segment extends NetworkMember {
 		populateCoordinates(parentSegment);
 	}
 
-	public MicroMeterSquared getSurfaceArea() {
-		MicroMeterSquared radiusSquared = getRadius().square();
-		BigDecimal twoTimesPi = two.multiply(pi);
-		BigDecimal twoTimesPiTimesRadiusTimesHeight = twoTimesPi.multiply(radius.getMicroMeters())
-				.multiply(length.getMicroMeters());
-		BigDecimal twoTimesPiTimesRadiusSquared = twoTimesPi.multiply(radiusSquared.getMicroMeters());
-		BigDecimal surfaceArea = twoTimesPiTimesRadiusTimesHeight.add(twoTimesPiTimesRadiusSquared);
-		return new MicroMeterSquared(surfaceArea);
-	}
+	// public MicroMeterSquared getSurfaceArea() {
+	// MicroMeterSquared radiusSquared = getRadius().square();
+	// BigDecimal twoTimesPi = two.multiply(pi);
+	// BigDecimal twoTimesPiTimesRadiusTimesHeight =
+	// twoTimesPi.multiply(radius.getMicroMeters())
+	// .multiply(length.getMicroMeters());
+	// BigDecimal twoTimesPiTimesRadiusSquared =
+	// twoTimesPi.multiply(radiusSquared.getMicroMeters());
+	// BigDecimal surfaceArea =
+	// twoTimesPiTimesRadiusTimesHeight.add(twoTimesPiTimesRadiusSquared);
+	// return new MicroMeterSquared(surfaceArea);
+	// }
 
 	public void populateCoordinates(Segment parentSegment) {
 		LinkedList<Coordinate> parentCoordinates = parentSegment.getCoordinates();
