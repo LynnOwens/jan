@@ -1,12 +1,11 @@
 package net.tofweb.jann.segment;
 
 import net.tofweb.jann.Configuration;
-import net.tofweb.jann.neuron.ArtificialNeuron;
 
 public class DendriticBranchSegment extends BranchSegment {
 
-	public DendriticBranchSegment(ArtificialNeuron parentNeuron, Segment parentSegment) {
-		super(parentSegment);
+	public DendriticBranchSegment(Segment parentSegment, Integer maxNumSegments) {
+		super(parentSegment, maxNumSegments);
 
 		setLength(Configuration.getDendriteSegmentLength());
 		setRadius(Configuration.getDendriteSegmentRadius());

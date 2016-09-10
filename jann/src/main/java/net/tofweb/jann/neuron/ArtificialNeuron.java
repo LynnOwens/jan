@@ -15,16 +15,20 @@ public class ArtificialNeuron extends NetworkMember {
 	private Integer maxNumberDendriteArbors = Configuration.getMaxNumberDendriteArbors();
 
 	// TODO: Put a range around this
-	private Integer numRemainingAxonalChildren = Configuration.getAverageNumOfAxonBranches();
+	private Integer numRemainingAxonalBranches = Configuration.getAverageNumOfAxonBranches();
 
 	// TODO: Put a range around this
-	private Integer numRemainingDendriticChildren = Configuration.getAverageNumOfDendriteBranches();
+	private Integer numRemainingDendriticBranches = Configuration.getAverageNumOfDendriteBranches();
 
 	public ArtificialNeuron() {
 		super();
 
+		// TODO: Move me to configuration
+		// Axons branch about 150 times and are about 1000 coords long each
+		// Dendrites branch about 225 times and are about 180 coords long each
+
 		soma = new SomaticSegment(this);
-		axonHillock = new AxonalBranchSegment(soma);
+		axonHillock = new AxonalBranchSegment(soma, 1000);
 		axonHillock.arborize();
 	}
 
@@ -60,28 +64,28 @@ public class ArtificialNeuron extends NetworkMember {
 		this.axonHillock = axonHillock;
 	}
 
-	public Integer getNumRemainingAxonalChildren() {
-		return numRemainingAxonalChildren;
-	}
-
-	public void setNumRemainingAxonalChildren(Integer numRemainingAxonalChildren) {
-		this.numRemainingAxonalChildren = numRemainingAxonalChildren;
-	}
-
-	public Integer getNumRemainingDendriticChildren() {
-		return numRemainingDendriticChildren;
-	}
-
-	public void setNumRemainingDendriticChildren(Integer numRemainingDendriticChildren) {
-		this.numRemainingDendriticChildren = numRemainingDendriticChildren;
-	}
-
 	public Integer getMaxNumberDendriteArbors() {
 		return maxNumberDendriteArbors;
 	}
 
 	public void setMaxNumberDendriteArbors(Integer maxNumberDendriteArbors) {
 		this.maxNumberDendriteArbors = maxNumberDendriteArbors;
+	}
+
+	public Integer getNumRemainingAxonalBranches() {
+		return numRemainingAxonalBranches;
+	}
+
+	public void setNumRemainingAxonalBranches(Integer numRemainingAxonalBranches) {
+		this.numRemainingAxonalBranches = numRemainingAxonalBranches;
+	}
+
+	public Integer getNumRemainingDendriticBranches() {
+		return numRemainingDendriticBranches;
+	}
+
+	public void setNumRemainingDendriticBranches(Integer numRemainingDendriticBranches) {
+		this.numRemainingDendriticBranches = numRemainingDendriticBranches;
 	}
 
 	@Override

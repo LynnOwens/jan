@@ -3,12 +3,11 @@ package net.tofweb.jann.segment;
 import java.util.concurrent.ThreadLocalRandom;
 
 import net.tofweb.jann.Configuration;
-import net.tofweb.jann.neuron.ArtificialNeuron;
 
 public class AxonalBranchSegment extends BranchSegment {
 
-	public AxonalBranchSegment(Segment parentSegment) {
-		super(parentSegment);
+	public AxonalBranchSegment(Segment parentSegment, Integer maxNumSegments) {
+		super(parentSegment, maxNumSegments);
 
 		setLength(Configuration.getAxonSegmentLength());
 		setRadius(Configuration.getAxonSegmentRadius());
@@ -18,47 +17,28 @@ public class AxonalBranchSegment extends BranchSegment {
 		setRestingPotential(Configuration.getAxonRestingPotential());
 		setSegmentSplitMaximum(Configuration.getAxonSegmentSplitMaximum());
 		setSynapsesPerMicroMeterSquared(Configuration.getAxonSynapsesPerMicroMeterSquared());
-
-		// Axons branch about 150 times and are about 1000 coords long each
-		// Dendrites branch about 225 times and are about 180 coords long each
-		// Soma has 1 coord
-		// TODO me
 	}
 
 	public void arborize() {
-		int maxRemainingAxonalChildren = this.getParentNeuron().getNumRemainingAxonalChildren();
-		int remainingSegmentChildren = ThreadLocalRandom.current().nextInt(0, getSegmentSplitMaximum() + 1);
-		nativeArborize(maxRemainingAxonalChildren, remainingSegmentChildren);
-	}
+		Integer myChildSegments = getMaxNumSegments() - 1;
 
-	private void nativeArborize(Integer maxRemainingChildren, Integer remainingSegmentSplits) {
-		if (maxRemainingChildren > 0) {
-			while (remainingSegmentSplits > 0) {
+		// TODO move me to configuration: 150 / 1000
+		Integer chanceOfBranching = 8;
 
-				ArtificialNeuron parentNeuron = this.getParentNeuron();
-				maxRemainingChildren = parentNeuron.getNumRemainingAxonalChildren();
-
-				if (maxRemainingChildren > 0) {
-					AxonalBranchSegment nextChild = new AxonalBranchSegment(this);
-					this.addChildSegment(nextChild);
-					parentNeuron.setNumRemainingAxonalChildren(--maxRemainingChildren);
-					remainingSegmentSplits--;
-					nextChild.arborize();
-				} else {
-					break;
-				}
+		if (myChildSegments > 0) {
+			Integer chanceOfBranchingRoll = ThreadLocalRandom.current().nextInt(0, 101);
+			if (chanceOfBranchingRoll < chanceOfBranching) {
+				Integer branchSegments = myChildSegments / 2;
+				myChildSegments = myChildSegments - branchSegments;
+				AxonalBranchSegment branch = new AxonalBranchSegment(this, branchSegments);
+				this.addChildSegment(branch);
+				branch.arborize();
 			}
+
+			AxonalBranchSegment branch = new AxonalBranchSegment(this, myChildSegments);
+			this.addChildSegment(branch);
+			branch.arborize();
 		}
 	}
 
-	// private void populateSynapses() {
-	// Integer synapsesRemaining = getSynapsesPerMicroMeterSquared() *
-	// getSurfaceArea().getMicroMeters().intValue();
-	//
-	// getSynapses().clear();
-	// while (synapsesRemaining > 0) {
-	// addSynapse(new SynapticTerminal());
-	// synapsesRemaining--;
-	// }
-	// }
 }

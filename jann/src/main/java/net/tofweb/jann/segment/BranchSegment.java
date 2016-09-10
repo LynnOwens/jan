@@ -11,11 +11,12 @@ public abstract class BranchSegment extends Segment {
 	private Integer synapsesPerMicroMeterSquared = 0;
 	private List<SynapticTerminal> synapses = new ArrayList<SynapticTerminal>();
 	private List<BranchSegment> childSegments = new ArrayList<BranchSegment>();
-
 	private Integer segmentSplitMaximum;
+	private Integer maxNumSegments;
 
-	public BranchSegment(Segment parentSegment) {
+	public BranchSegment(Segment parentSegment, Integer maxNumSegments) {
 		super(parentSegment);
+		this.maxNumSegments = maxNumSegments;
 	}
 
 	public BranchSegment(ArtificialNeuron parentNeuron) {
@@ -60,6 +61,14 @@ public abstract class BranchSegment extends Segment {
 
 	public void setSegmentSplitMaximum(Integer segmentSplitMaximum) {
 		this.segmentSplitMaximum = segmentSplitMaximum;
+	}
+
+	public Integer getMaxNumSegments() {
+		return maxNumSegments;
+	}
+
+	public void setMaxNumSegments(Integer maxNumSegments) {
+		this.maxNumSegments = maxNumSegments;
 	}
 
 }

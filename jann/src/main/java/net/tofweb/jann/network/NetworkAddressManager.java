@@ -3,7 +3,6 @@ package net.tofweb.jann.network;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.googlecode.ipv6.IPv6Address;
@@ -30,10 +29,8 @@ public class NetworkAddressManager {
 
 		if (last.getAddress() == null) {
 			potentialCoordinate = buildInitialCoordinate();
-			log.debug("Built initial coordinate " + potentialCoordinate);
 		} else {
 			potentialCoordinate = buildNextCoordinate(last);
-			log.debug("Built next coordinate " + potentialCoordinate);
 		}
 
 		boolean isCoordinateExisting = testCoordinateExistence(potentialCoordinate);
@@ -106,11 +103,6 @@ public class NetworkAddressManager {
 	private static boolean testCoordinateExistence(Coordinate potentialCoordinate) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	private static String buildRandomHextet() {
-		Integer randomInt = ThreadLocalRandom.current().nextInt(0, 65535);
-		return StringUtils.leftPad(Integer.toHexString(randomInt), 4, "0");
 	}
 
 	private static Integer randomizeDirection() {
