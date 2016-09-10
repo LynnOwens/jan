@@ -28,10 +28,18 @@ public class ArtificialNeuron extends NetworkMember {
 		// Dendrites branch about 225 times and are about 180 coords long each
 
 		soma = new SomaticSegment(this);
-		axonHillock = new AxonalBranchSegment(soma, 1000);
+
+		// 150 branches * 1000 coords each = 150000
+		axonHillock = new AxonalBranchSegment(soma, 150000);
 		axonHillock.arborize();
 	}
 
+	/**
+	 * Tries to grow a dendrite or add a dendrite to make a connection to the
+	 * destination AN, if possible
+	 * 
+	 * @param an
+	 */
 	public void connectTo(ArtificialNeuron an) {
 
 	}
